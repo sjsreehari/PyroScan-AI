@@ -4,11 +4,21 @@ from PIL import Image
 from io import BytesIO
 import os
 from src.utils.unique_id import unique_image_label
+import pandas as pd
+import os
+
+
+load_path = os.path.join("src/data", "danger-zone.csv") 
+
+
+
+
+df = pd.read_csv(load_path)
+
 
 
 API_KEY = "902029b0-7b4d-4c06-a37d-0c921bd6dfc4"
 API_URL = "https://heatmapapi.com/heatmapapiservices/api/createHeatmap"
-CENTER_LAT, CENTER_LON = 37.775, -122.434
 NUM_POINTS = 50
 RADIUS_MILES = 1
 WIDTH, HEIGHT = 400, 300
@@ -25,7 +35,7 @@ def generate_random_points(center_lat, center_lon, count):
 def prepare_datapoints_string(points):
     return ",".join(f"{lat},{lon},{weight}" for lat, lon, weight in points)
 
-def create_heatmap():
+def create_heatmap(CENTER_LAT, CENTER_LON, name):
     points = generate_random_points(CENTER_LAT, CENTER_LON, NUM_POINTS)
     data_points_str = prepare_datapoints_string(points)
 
@@ -70,8 +80,14 @@ def create_heatmap():
         output_image_path = os.path.join(output_folder, label)
         image.save(output_image_path)
         
-        print(f"Heatmap saved successfully to: {output_image_path}")        
+        print(f"Heatmap ====> {name} saved successfully to: {output_image_path}")        
     else:
         print("No image URL returned:", data)
 
 
+for idx, row in df.iterrows():
+    region = row.get("Region", f"zone_{idx}".replace("  ", "_"))
+    lat = row
+    lat = row["Latitude"]
+    lon = row["Longitude"]
+    create_heatmap(lat, lon, region)
