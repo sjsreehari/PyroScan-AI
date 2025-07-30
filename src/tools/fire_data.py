@@ -3,6 +3,8 @@ import requests
 from PIL import Image
 from io import BytesIO
 import os
+from src.utils.unique_id import unique_image_label
+
 
 API_KEY = "902029b0-7b4d-4c06-a37d-0c921bd6dfc4"
 API_URL = "https://heatmapapi.com/heatmapapiservices/api/createHeatmap"
@@ -63,8 +65,11 @@ def create_heatmap():
             
         os.makedirs(output_folder, exist_ok=True) 
 
-        output_image_path = os.path.join(output_folder, "heatmap_output.png")
+        label = unique_image_label("heatmap_output.png")
+        
+        output_image_path = os.path.join(output_folder, label)
         image.save(output_image_path)
+        
         print(f"Heatmap saved successfully to: {output_image_path}")        
     else:
         print("No image URL returned:", data)
