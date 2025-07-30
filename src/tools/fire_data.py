@@ -1,31 +1,8 @@
-# import requests
-# import os
-
-
-    
-    
-# def get_fire_data():
-#     """
-#     Function to fetch and save fire data from the NASA FIRMS API.
-#     """
-#     fire = requests.get("https://firms.modaps.eosdis.nasa.gov/api/area/csv/93f4e7690a9c14e23a4e8d0004c6e0be/VIIRS_SNPP_NRT/world/10").text
-
-
-
-#     save_path = os.path.join("src/db", "fire_data.csv")
-
-#     with open(save_path, "w") as f:
-#         f.write(fire)
-
-#     print("Finished writing fire data to db/fire_data.csv......")
-
-
 import random
 import requests
 from PIL import Image
 from io import BytesIO
 
-# --- Configuration ---
 API_KEY = "902029b0-7b4d-4c06-a37d-0c921bd6dfc4"
 API_URL = "https://heatmapapi.com/heatmapapiservices/api/createHeatmap"
 CENTER_LAT, CENTER_LON = 37.775, -122.434
@@ -33,7 +10,6 @@ NUM_POINTS = 50
 RADIUS_MILES = 1
 WIDTH, HEIGHT = 400, 300
 
-# --- Generate random points around center ---
 def generate_random_points(center_lat, center_lon, count):
     points = []
     for _ in range(count):
@@ -43,11 +19,9 @@ def generate_random_points(center_lat, center_lon, count):
         points.append((lat, lon, weight))
     return points
 
-# --- Convert points to comma-separated string ---
 def prepare_datapoints_string(points):
     return ",".join(f"{lat},{lon},{weight}" for lat, lon, weight in points)
 
-# --- Create heatmap and download image ---
 def create_heatmap():
     points = generate_random_points(CENTER_LAT, CENTER_LON, NUM_POINTS)
     data_points_str = prepare_datapoints_string(points)
