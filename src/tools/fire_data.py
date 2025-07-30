@@ -75,7 +75,7 @@ def create_heatmap(CENTER_LAT, CENTER_LON, name):
             
         os.makedirs(output_folder, exist_ok=True) 
 
-        label = unique_image_label("heatmap_output.png")
+        label = unique_image_label("heatmap_output.png", name)
         
         output_image_path = os.path.join(output_folder, label)
         image.save(output_image_path)

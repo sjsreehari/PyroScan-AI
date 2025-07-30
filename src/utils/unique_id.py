@@ -3,7 +3,7 @@ import random
 
 
 
-def unique_image_label(imagelabel):
+def unique_image_label(imagelabel, name):
     
     
     image_label = imagelabel.replace(".png", "")
@@ -14,7 +14,7 @@ def unique_image_label(imagelabel):
     format_string_full = "%d-%m-%y-%H:%M:%S"
     
     current_time = datetime.datetime.strptime(date_string_full, format_string_full)
-    label = f"{image_label}-{random_int}-{current_time}".strip().replace(" ", "").replace(".", "").replace(":", "")
+    label = f"{image_label}-{name}-{random_int}-{current_time}".strip().replace(" ", "").replace(".", "").replace(":", "")
 
     label_name_with_ext = f"{label}.png"
     print(label_name_with_ext)
