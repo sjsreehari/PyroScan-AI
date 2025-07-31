@@ -1,4 +1,5 @@
-from src.tools.fire_data import create_heatmap
+from src.executables.executable import executable
 
-if __name__ == "__main__":
-    create_heatmap()
+
+
+executable()

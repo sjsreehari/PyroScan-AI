@@ -11,11 +11,7 @@ import os
 load_path = os.path.join("src/data", "danger-zone.csv") 
 
 
-
-
 df = pd.read_csv(load_path)
-
-
 
 API_KEY = "902029b0-7b4d-4c06-a37d-0c921bd6dfc4"
 API_URL = "https://heatmapapi.com/heatmapapiservices/api/createHeatmap"
@@ -71,11 +67,12 @@ def create_heatmap(CENTER_LAT, CENTER_LON, name):
         img_resp = requests.get(image_url)
         img_resp.raise_for_status()
         image = Image.open(BytesIO(img_resp.content))
-        output_folder = "src/db/firemap-storage"
+        output_folder = f"src/db/firemap-storage/{CENTER_LAT}-{CENTER_LON}"
             
         os.makedirs(output_folder, exist_ok=True) 
 
         label = unique_image_label("heatmap_output.png", name)
+
         
         output_image_path = os.path.join(output_folder, label)
         image.save(output_image_path)
