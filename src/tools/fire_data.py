@@ -1,90 +1,65 @@
-import random
-import requests
-from PIL import Image
-from io import BytesIO
-import os
-from src.utils.unique_id import unique_image_label
 import pandas as pd
-import os
+import csv
+from geopy.distance import geodesic
+
+def get_fire_data_by_location():
+    print("📍 Enter coordinates to search nearby fire incidents:")
+    try:
+        lat = float(input("Enter Latitude (e.g., 8.5): "))
+        lon = float(input("Enter Longitude (e.g., 76.9): "))
+    except ValueError:
+        print("❌ Invalid input. Please enter valid numbers.")
+        return
+
+    print("⏳ Fetching fire data near your location...")
+
+    # Load full fire dataset
+    try:
+        file_path = 'src/db/fire_data.csv'  # Path to your full fire dataset
+        df = pd.read_csv(file_path)
+    except FileNotFoundError:
+        print("❌ fire_data.csv file not found.")
+        return
+
+    # Drop rows with missing lat/lon
+    df = df.dropna(subset=['latitude', 'longitude'])
+
+    # Calculate distances
+    df['distance_km'] = df.apply(
+        lambda row: geodesic((lat, lon), (row['latitude'], row['longitude'])).km,
+        axis=1
+    )
+
+    # Get nearest row
+    nearest_row = df.loc[df['distance_km'].idxmin()]
+
+    # Save to output CSV
+    save_path = 'src/db/fire_data_location.csv'
+    required_columns = ['latitude', 'longitude', 'acq_date', 'acq_time', 'frp', 'confidence']
+
+    try:
+        with open(save_path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=required_columns)
+            writer.writeheader()
+            writer.writerow({col: nearest_row[col] for col in required_columns})
+        print(f"✅ Data saved to {save_path}")
+        print(f"📍 Nearest fire data is {nearest_row['distance_km']:.2f} km away")
+    except Exception as e:
+        print(f"❌ Error writing to CSV: {e}")
 
 
-load_path = os.path.join("src/data", "danger-zone.csv") 
+def menu():
+    while True:
+        print("\n🔥 PyroScan AI - Fire Data Lookup 🔥")
+        print("1. Search fire data by coordinates")
+        print("2. Exit")
+        choice = input("Enter your choice (1 or 2): ")
 
+        if choice == "1":
+            get_fire_data_by_location()
+        elif choice == "2":
+            print("👋 Exiting. Stay safe!")
+            break
+        else:
+            print("❌ Invalid choice. Please enter 1 or 2.")
 
-df = pd.read_csv(load_path)
-
-API_KEY = "902029b0-7b4d-4c06-a37d-0c921bd6dfc4"
-API_URL = "https://heatmapapi.com/heatmapapiservices/api/createHeatmap"
-NUM_POINTS = 50
-RADIUS_MILES = 1
-WIDTH, HEIGHT = 400, 300
-
-def generate_random_points(center_lat, center_lon, count):
-    points = []
-    for _ in range(count):
-        lat = center_lat + (random.random() - 0.5) / 25
-        lon = center_lon + (random.random() - 0.5) / 12
-        weight = 1
-        points.append((lat, lon, weight))
-    return points
-
-def prepare_datapoints_string(points):
-    return ",".join(f"{lat},{lon},{weight}" for lat, lon, weight in points)
-
-def create_heatmap(CENTER_LAT, CENTER_LON, name):
-    points = generate_random_points(CENTER_LAT, CENTER_LON, NUM_POINTS)
-    data_points_str = prepare_datapoints_string(points)
-
-    lats = [lat for lat, _, _ in points]
-    lons = [lon for _, lon, _ in points]
-
-    params = {
-        "Width": WIDTH,
-        "Height": HEIGHT,
-        "Lat1": min(lats),
-        "Lat2": max(lats),
-        "Lon1": min(lons),
-        "Lon2": max(lons),
-        "DistanceMultiple": 20,
-        "UseAverage": False,
-        "ColorPalette": "1",
-        "DataPoints": data_points_str
-    }
-
-    headers = {
-        "Content-Type": "application/json",
-        "X-Api-Key": API_KEY
-    }
-
-    response = requests.post(API_URL, json=params, headers=headers)
-    response.raise_for_status()
-    data = response.json()
-
-    if 'imageUrl' in data:
-        image_url = f"https://heatmapapi.com/hm/{data['imageUrl']}"
-        print("Heatmap image URL:", image_url)
-
-        img_resp = requests.get(image_url)
-        img_resp.raise_for_status()
-        image = Image.open(BytesIO(img_resp.content))
-        output_folder = f"src/db/firemap-storage/{CENTER_LAT}-{CENTER_LON}"
-            
-        os.makedirs(output_folder, exist_ok=True) 
-
-        label = unique_image_label("heatmap_output.png", name)
-
-        
-        output_image_path = os.path.join(output_folder, label)
-        image.save(output_image_path)
-        
-        print(f"Heatmap ====> {name} saved successfully to: {output_image_path}")        
-    else:
-        print("No image URL returned:", data)
-
-
-for idx, row in df.iterrows():
-    region = row.get("Region", f"zone_{idx}".replace("  ", "_"))
-    lat = row
-    lat = row["Latitude"]
-    lon = row["Longitude"]
-    create_heatmap(lat, lon, region)
