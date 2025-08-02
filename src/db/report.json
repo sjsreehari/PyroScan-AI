@@ -1,0 +1,62 @@
+[
+  {
+    "latitude": -33.97,
+    "longitude": 18.58,
+    "date_range": {
+      "start_date": "2025-07-24",
+      "end_date": "2025-07-28"
+    },
+    "bright_ti4_values": {
+      "2025-07-24": 302.88,
+      "2025-07-25": 296.78,
+      "2025-07-28": 308.52
+    },
+    "trend_metrics": {
+      "percentage_increase": 1.89,
+      "slope": 1.88
+    },
+    "latest_confidence": "n",
+    "latest_frp": 0.72,
+    "status": "no significant trend",
+    "reason": "The bright_ti4 values show fluctuations without a consistent increasing trend over consecutive days."
+  },
+  {
+    "latitude": 37.86,
+    "longitude": 23.83,
+    "date_range": {
+      "start_date": "2025-07-27",
+      "end_date": "2025-07-29"
+    },
+    "bright_ti4_values": {
+      "2025-07-27": 305.98,
+      "2025-07-29": 340.2
+    },
+    "trend_metrics": {
+      "percentage_increase": 11.19,
+      "slope": 17.11
+    },
+    "latest_confidence": "n",
+    "latest_frp": 8.29,
+    "status": "fire emerging",
+    "reason": "The bright_ti4 values show a consistent increase over two consecutive days with a substantial slope and supporting FRP increase."
+  },
+  {
+    "latitude": -3.56,
+    "longitude": -62.09,
+    "date_range": {
+      "start_date": "2025-07-28",
+      "end_date": "2025-07-28"
+    },
+    "bright_ti4_values": {
+      "2025-07-28": 367.0
+    },
+    "trend_metrics": {
+      "percentage_increase": 0,
+      "slope": 0
+    },
+    "latest_confidence": "h",
+    "latest_frp": 80.94,
+    "status": "no significant trend",
+    "reason": "Only a single day of data is available, so no trend can be determined."
+  }
+]

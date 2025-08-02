@@ -2,16 +2,25 @@ from langchain_openai import ChatOpenAI
 import os
 import pandas as pd
 from src.agent.prompt import PredictFireOccuringPlace
+import json
 
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 def PredictFirePlaces():
     llm = ChatOpenAI(
         model="deepseek/deepseek-chat-v3-0324:free",
         base_url="https://openrouter.ai/api/v1", 
-        api_key="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"  
+        api_key=os.getenv("OPENROUTER_API_KEY")
     )
 
     load_csv = os.path.join("src/db/", "filtered_fire_data.csv")
+    save_path = os.path.join("src/db/", "report.json")
+    
+    
     csv_chunk = pd.read_csv(load_csv)
     csv_data_str = csv_chunk.to_csv(index=False)
 
@@ -19,4 +28,14 @@ def PredictFirePlaces():
 
     response = llm.invoke(prompt_text)
 
-    print(response)
+
+    json_str = response.content.strip("```json\n").strip("```")
+
+    fire_trends = json.loads(json_str)
+
+    print(fire_trends)
+
+    with open(save_path, "w") as f:
+        json.dump(fire_trends, f, indent=2)
+        
+        

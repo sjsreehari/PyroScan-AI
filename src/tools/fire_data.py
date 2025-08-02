@@ -2,6 +2,12 @@ import requests
 import os
 import csv
 from io import StringIO
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
 
 target_locations = [
     {"Location": "Amazon Rainforest", "Latitude": -3.4653, "Longitude": -62.2159},
@@ -20,7 +26,9 @@ def is_near(lat1, lon1, lat2, lon2, tolerance=0.2):
     return abs(lat1 - lat2) <= tolerance and abs(lon1 - lon2) <= tolerance
 
 def get_fire_data():
-    url = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/93f4e7690a9c14e23a4e8d0004c6e0be/VIIRS_SNPP_NRT/world/10"
+    
+    API_KEY = os.getenv("NASA_FIRM_API_KEY")
+    url = f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/{API_KEY}/VIIRS_SNPP_NRT/world/10"
     save_dir = "src/db"
     save_path = os.path.join(save_dir, "filtered_fire_data.csv")
 
