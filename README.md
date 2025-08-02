@@ -1,16 +1,15 @@
-# 🔥 PyroScan AI - Forest Fire Prediction Agentic AI
+#  PyroScan AI - Agentic AI For Forest Fire Prediction 
 
 PyroScan AI is an intelligent agentic AI system designed to predict and monitor forest fires using real-time satellite data from NASA FIRMS API and advanced machine learning techniques. The system provides early warning capabilities and comprehensive fire risk assessment for critical forest regions worldwide.
 
-## 🌟 Features
+##  Features
 
 - **Real-time Fire Detection**: Fetches live fire data from NASA FIRMS satellite API
 - **Multi-Region Monitoring**: Tracks fire incidents in 10 critical forest regions globally
 - **Intelligent Filtering**: Filters fire data based on proximity to high-risk areas
 - **Agentic Decision Making**: AI-powered analysis and prediction capabilities
 - **Geographic Analysis**: Location-based fire risk assessment
-- **Data Visualization**: Heat map generation and fire mapping
-- **Early Warning System**: Proactive fire risk alerts
+
 
 ## 🎯 Target Monitoring Regions
 
@@ -58,7 +57,7 @@ The system monitors fire incidents in these critical forest regions:
    pip install -r requirements.txt
    ```
 
-## 🔑 API Keys Setup
+##  API Keys Setup
 
 PyroScan AI requires API keys for external services. Create a `.env` file in the project root with the following keys:
 
@@ -80,15 +79,14 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
 
 ### Example `.env` file:
 ```
-NASA_FIRM_API_KEY=93f4e7690a9c14e23a4e8d0004c6e0be
+NASA_FIRM_API_KEY=9b****************04c6ee
 OPENROUTER_API_KEY=your_openrouter_api_key_here
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 PyroScan-AI/
-├── config.py                 # Configuration settings
 ├── main.py                   # Main application entry point
 ├── requirements.txt          # Python dependencies
 ├── src/
@@ -109,7 +107,6 @@ PyroScan-AI/
 │   │   └── fire_map.py
 │   ├── tools/               # Core tools and utilities
 │   │   ├── fire_data.py     # Fire data fetching and processing
-│   │   └── heat_map_classifier.py
 │   └── utils/               # Utility functions
 │       ├── get_coordinates.py
 │       └── unique_id.py
@@ -141,14 +138,6 @@ python main.py
 python src/server/app.py
 ```
 
-## 🔧 Configuration
-
-The system can be configured through `config.py`:
-- API endpoints
-- Monitoring regions
-- Data filtering parameters
-- Alert thresholds
-
 ## 📊 Data Sources
 
 - **NASA FIRMS API**: Real-time satellite fire detection data
@@ -168,37 +157,10 @@ The system can be configured through `config.py`:
 - Geographic proximity analysis
 - Risk assessment algorithms
 
-## 📈 Future Enhancements
-
-- Machine learning model training
-- Predictive analytics
-- Mobile application
-- Real-time alerts and notifications
-- Integration with emergency services
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## ⚠️ Disclaimer
 
 PyroScan AI is designed for research and monitoring purposes. Always follow local emergency protocols and contact appropriate authorities in case of actual fire emergencies.
 
-## 📞 Support
 
-For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation
-
----
-
-**🔥 Stay Safe, Stay Informed - PyroScan AI 🔥** 
+**Drop a star on GitHub if you like it!** 
