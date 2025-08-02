@@ -11,7 +11,7 @@ PyroScan AI is an intelligent agentic AI system designed to predict and monitor 
 - **Geographic Analysis**: Location-based fire risk assessment
 
 
-## 🎯 Target Monitoring Regions
+## Target Monitoring Regions
 
 The system monitors fire incidents in these critical forest regions:
 
@@ -26,7 +26,7 @@ The system monitors fire incidents in these critical forest regions:
 - **Mato Grosso** (Brazil)
 - **Los Angeles National Forest** (USA)
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -37,7 +37,7 @@ The system monitors fire incidents in these critical forest regions:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/DeveloperAromal/PyroScan-AI.git
    cd PyroScan-AI
    ```
 
@@ -96,15 +96,14 @@ PyroScan-AI/
 │   ├── data/                # Data files
 │   │   └── danger-zone.csv
 │   ├── db/                  # Database and storage
-│   │   ├── fire_data.csv
+│   │   ├── report.json
 │   │   ├── fire_data_by_danger_zone.csv
 │   │   ├── fire_data_location.csv
-│   │   └── firemap-storage/
+│   │   └── filtered_fire_data.csv
 │   ├── executables/         # Executable scripts
 │   │   └── executable.py
 │   ├── server/              # Web server components
 │   │   ├── app.py
-│   │   └── fire_map.py
 │   ├── tools/               # Core tools and utilities
 │   │   ├── fire_data.py     # Fire data fetching and processing
 │   └── utils/               # Utility functions
@@ -113,7 +112,7 @@ PyroScan-AI/
 └── venv/                    # Virtual environment
 ```
 
-## 🛠️ Usage
+## Usage
 
 ### Running the Fire Data Tool
 
@@ -138,19 +137,19 @@ python main.py
 python src/server/app.py
 ```
 
-## 📊 Data Sources
+## Data Sources
 
 - **NASA FIRMS API**: Real-time satellite fire detection data
 - **VIIRS Satellite**: Visible Infrared Imaging Radiometer Suite
 - **NRT Data**: Near Real-Time fire detection
 
-## 🤖 AI Components
+## AI Components
 
 - **Decision Maker**: AI agent for fire risk assessment
 - **Heat Map Classifier**: Machine learning for fire pattern analysis
 - **Prompt Engineering**: Optimized prompts for AI analysis
 
-## 🚨 Safety Features
+## Safety Features
 
 - Real-time monitoring of critical forest regions
 - Early warning system for fire outbreaks
@@ -158,7 +157,7 @@ python src/server/app.py
 - Risk assessment algorithms
 
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 PyroScan AI is designed for research and monitoring purposes. Always follow local emergency protocols and contact appropriate authorities in case of actual fire emergencies.
 
