@@ -33,7 +33,6 @@ def PredictFirePlaces():
 
     fire_trends = json.loads(json_str)
 
-    print(fire_trends)
 
     with open(save_path, "w") as f:
         json.dump(fire_trends, f, indent=2)
