@@ -1,65 +1,59 @@
-import pandas as pd
+import requests
+import os
 import csv
-from geopy.distance import geodesic
+from io import StringIO
 
-def get_fire_data_by_location():
-    print("📍 Enter coordinates to search nearby fire incidents:")
-    try:
-        lat = float(input("Enter Latitude (e.g., 8.5): "))
-        lon = float(input("Enter Longitude (e.g., 76.9): "))
-    except ValueError:
-        print("❌ Invalid input. Please enter valid numbers.")
-        return
+target_locations = [
+    {"Location": "Amazon Rainforest", "Latitude": -3.4653, "Longitude": -62.2159},
+    {"Location": "California Wildlands", "Latitude": 36.7783, "Longitude": -119.4179},
+    {"Location": "British Columbia", "Latitude": 53.7267, "Longitude": -127.6476},
+    {"Location": "Siberia Forests", "Latitude": 60.0000, "Longitude": 105.0000},
+    {"Location": "Athens Outskirts", "Latitude": 37.9838, "Longitude": 23.7275},
+    {"Location": "Canberra Region", "Latitude": -35.2809, "Longitude": 149.1300},
+    {"Location": "Alberta Forests", "Latitude": 54.0000, "Longitude": -115.0000},
+    {"Location": "Western Cape", "Latitude": -33.9249, "Longitude": 18.4241},
+    {"Location": "Mato Grosso", "Latitude": -12.6819, "Longitude": -55.6896},
+    {"Location": "Los Angeles National Forest", "Latitude": 34.5000, "Longitude": -118.2000},
+]
 
-    print("⏳ Fetching fire data near your location...")
+def is_near(lat1, lon1, lat2, lon2, tolerance=0.2):
+    return abs(lat1 - lat2) <= tolerance and abs(lon1 - lon2) <= tolerance
 
-    # Load full fire dataset
-    try:
-        file_path = 'src/db/fire_data.csv'  # Path to your full fire dataset
-        df = pd.read_csv(file_path)
-    except FileNotFoundError:
-        print("❌ fire_data.csv file not found.")
-        return
-
-    # Drop rows with missing lat/lon
-    df = df.dropna(subset=['latitude', 'longitude'])
-
-    # Calculate distances
-    df['distance_km'] = df.apply(
-        lambda row: geodesic((lat, lon), (row['latitude'], row['longitude'])).km,
-        axis=1
-    )
-
-    # Get nearest row
-    nearest_row = df.loc[df['distance_km'].idxmin()]
-
-    # Save to output CSV
-    save_path = 'src/db/fire_data_location.csv'
-    required_columns = ['latitude', 'longitude', 'acq_date', 'acq_time', 'frp', 'confidence']
+def get_fire_data():
+    url = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/93f4e7690a9c14e23a4e8d0004c6e0be/VIIRS_SNPP_NRT/world/10"
+    save_dir = "src/db"
+    save_path = os.path.join(save_dir, "filtered_fire_data.csv")
 
     try:
-        with open(save_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=required_columns)
+        print("[~] Fetching fire data from FIRMS API...")
+        response = requests.get(url, timeout=15)
+        response.raise_for_status()
+
+        os.makedirs(save_dir, exist_ok=True)
+
+        csv_data = StringIO(response.text)
+        reader = csv.DictReader(csv_data)
+
+        with open(save_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=reader.fieldnames)
             writer.writeheader()
-            writer.writerow({col: nearest_row[col] for col in required_columns})
-        print(f"✅ Data saved to {save_path}")
-        print(f"📍 Nearest fire data is {nearest_row['distance_km']:.2f} km away")
+
+            for row in reader:
+                fire_lat = float(row['latitude'])
+                fire_lon = float(row['longitude'])
+
+                for location in target_locations:
+                    if is_near(fire_lat, fire_lon, location['Latitude'], location['Longitude']):
+                        writer.writerow(row)
+                        break
+
+        print("[*] Filtered fire data saved to db/filtered_fire_data.csv")
+
+    except requests.exceptions.Timeout:
+        print("[x] Request timed out.")
+    except requests.exceptions.HTTPError as e:
+        print(f"[x] HTTP error: {e}")
+    except requests.exceptions.RequestException as e:
+        print(f"[x] Request failed: {e}")
     except Exception as e:
-        print(f"❌ Error writing to CSV: {e}")
-
-
-def menu():
-    while True:
-        print("\n🔥 PyroScan AI - Fire Data Lookup 🔥")
-        print("1. Search fire data by coordinates")
-        print("2. Exit")
-        choice = input("Enter your choice (1 or 2): ")
-
-        if choice == "1":
-            get_fire_data_by_location()
-        elif choice == "2":
-            print("👋 Exiting. Stay safe!")
-            break
-        else:
-            print("❌ Invalid choice. Please enter 1 or 2.")
-
+        print(f"⚠ General error: {e}")
