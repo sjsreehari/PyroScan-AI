@@ -25,7 +25,7 @@ def PredictFirePlaces():
     csv_data_str = csv_chunk.to_csv(index=False)
 
     prompt_text = PredictFireOccuringPlace(csv_data_str)
-
+    print(prompt_text)
     response = llm.invoke(prompt_text)
 
 
