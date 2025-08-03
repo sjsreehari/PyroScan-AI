@@ -13,6 +13,37 @@ def root():
     })
 
 
+
+@app.route("/api/v1/predictions", methods=["GET"])
+def log_predictions():
+    load_predictions = os.path.join(os.getcwd(), "src", "db", "report.json")
+
+    if not os.path.exists(load_predictions):
+        return jsonify({
+            "status_code":404,
+            "message": "report.json does not exist"
+        })
+        
+    try:
+
+        with open(load_predictions, "r") as f:
+            predictions = json.load(f)
+            return jsonify({
+                            "status_code": 200,
+                            "message": "Success",
+                            "data": predictions
+                            }), 200
+
+    except json.JSONDecodeError:
+
+        return jsonify({
+            "status_code": 500,
+            "message": "Invalid JSON format in report.json"
+        }), 500
+        
+        
+        
+
 @app.route("/predictions", methods=["GET"])
 def html_predictions():
     file_path = os.path.join(os.getcwd(), "src", "db", "report.json")
@@ -24,7 +55,6 @@ def html_predictions():
         with open(file_path, "r") as f:
             predictions = json.load(f)
         
-        # Debug: Check if data is loaded
         if not predictions:
             return "No data found in report.json", 404
             
@@ -32,3 +62,4 @@ def html_predictions():
     
     except json.JSONDecodeError:
         return "Invalid JSON format in report.json", 500
+
