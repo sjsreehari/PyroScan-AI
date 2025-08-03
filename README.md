@@ -135,6 +135,8 @@ python main.py
 
 ```bash
 docker build -t pyroscan-ai .
+
+docker run -p 8483:8483 --env-file .env pyroscan-ai
 ```
 
 
