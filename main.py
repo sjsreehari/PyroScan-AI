@@ -1,11 +1,13 @@
-from src.executables.executable import executable
-from colorama import Fore, Style
+from src.server.app import app
+from colorama import Fore, Style, init
+import os
 
 
+init(autoreset=True)
 
 def banner():
     print(
-        Fore.RED + """
+        Fore.RED + r"""
         
  /$$$$$$$  /$$     /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$   /$$        /$$$$$$  /$$$$$$
 | $$__  $$|  $$   /$$/| $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$$ | $$       /$$__  $$|_  $$_/
@@ -15,13 +17,26 @@ def banner():
 | $$          | $$    | $$  \ $$| $$  | $$ /$$  \ $$| $$    $$| $$  | $$| $$\  $$$      | $$  | $$  | $$  
 | $$          | $$    | $$  | $$|  $$$$$$/|  $$$$$$/|  $$$$$$/| $$  | $$| $$ \  $$      | $$  | $$ /$$$$$$
 |__/          |__/    |__/  |__/ \______/  \______/  \______/ |__/  |__/|__/  \__/      |__/  |__/|______/
-                                                                                                                                                                                                             
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+""" + Fore.YELLOW + Style.BRIGHT + """
+Contributers: 
+    - Sreehari
+    - Aromal 
+    
+Star us on GitHub if you like it! \n
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                                                                                                                                                                                      
         """ + Style.RESET_ALL
     )
 
 
-banner()
-
-executable()
-
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    banner()
+    
+    
+if __name__ == "__main__":
+    
+    
+    app.run(host="0.0.0.0", port=8434, debug=True)
 
