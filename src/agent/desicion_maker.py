@@ -18,7 +18,7 @@ def PredictFirePlaces():
     )
 
     load_csv = os.path.join("src/db/", "filtered_fire_data.csv")
-    save_path = os.path.join("src/db/", "report.json")
+    save_path = os.path.join("src/db/", "report.ndjson")
     
     
     csv_chunk = pd.read_csv(load_csv)
@@ -34,7 +34,7 @@ def PredictFirePlaces():
     fire_trends = json.loads(json_str)
 
 
-    with open(save_path, "w") as f:
+    with open(save_path, "a") as f:
         json.dump(fire_trends, f, indent=2)
         
         
