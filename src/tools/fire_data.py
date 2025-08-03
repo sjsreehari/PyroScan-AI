@@ -26,7 +26,7 @@ def is_near(lat1, lon1, lat2, lon2, tolerance=0.2):
     return abs(lat1 - lat2) <= tolerance and abs(lon1 - lon2) <= tolerance
 
 def get_fire_data():
-    
+    print("...")
     API_KEY = os.getenv("NASA_FIRM_API_KEY")
     url = f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/{API_KEY}/VIIRS_SNPP_NRT/world/10"
     save_dir = "src/db"

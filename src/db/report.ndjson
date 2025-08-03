@@ -1,40 +1,5 @@
-[
-  {
-    "representative_latitude": 37.85793,
-    "representative_longitude": 23.83277,
-    "date_range": [
-      "2025-07-27",
-      "2025-07-29"
-    ],
-    "bright_ti4_values": [
-      313.63,
-      339.05
-    ],
-    "trend_metrics": {
-      "slope": 25.42,
-      "percent_increase": 8.1
-    },
-    "latest_confidence": "n",
-    "latest_frp": 8.29,
-    "status": "fire emerging",
-    "reason": "bright_ti4 increased consistently over two days with an 8.1% rise, supported by nominal confidence and elevated FRP."
-  },
-  {
-    "representative_latitude": -3.56174,
-    "representative_longitude": -62.09169,
-    "date_range": [
-      "2025-07-28"
-    ],
-    "bright_ti4_values": [
-      350.7
-    ],
-    "trend_metrics": {
-      "slope": null,
-      "percent_increase": null
-    },
-    "latest_confidence": "h",
-    "latest_frp": 80.94,
-    "status": "fire ongoing",
-    "reason": "Single-day observation with high confidence and very high FRP (80.94), indicating an active fire. No prior data for trend analysis."
-  }
-]
+{"representative_latitude": 37.85793, "representative_longitude": 23.83277, "date_range": ["2025-07-27", "2025-07-29"], "bright_ti4_values": [313.63, 339.05], "trend_metrics": {"slope": 25.42, "percent_increase": 8.1}, "latest_confidence": "n", "latest_frp": 8.29, "status": "fire emerging", "reason": "bright_ti4 increased consistently over two days with an 8.1% rise, supported by nominal confidence and elevated FRP."}
+{"representative_latitude": -3.56174, "representative_longitude": -62.09169, "date_range": ["2025-07-28"], "bright_ti4_values": [350.7], "trend_metrics": {"slope": null, "percent_increase": null}, "latest_confidence": "h", "latest_frp": 80.94, "status": "fire ongoing", "reason": "Single-day observation with high confidence and very high FRP (80.94), indicating an active fire. No prior data for trend analysis."}
+{"latitude": 38.11088, "longitude": 23.57898, "date_range": {"start_date": "2025-07-27", "end_date": "2025-07-29"}, "bright_ti4_values": [{"date": "2025-07-27", "bright_ti4": 321.28}, {"date": "2025-07-29", "bright_ti4": 340.2}], "trend_metrics": {"slope": 9.46, "percent_increase": 5.89}, "latest_confidence": "n", "latest_frp": 8.29, "status": "fire likely happening", "reason": "The bright_ti4 has increased significantly over two consecutive days, with a positive slope and a percent increase of 5.89%, and the confidence is not low."}
+{"representative_latitude": -3.56168, "representative_longitude": -62.08958, "date_range_considered": {"start_date": "2025-07-28", "end_date": "2025-07-28"}, "recent_bright_ti4_values": {"2025-07-28": 348.2}, "computed_trend_metrics": {"slope": null, "percent_increase": null}, "latest_confidence": "n", "latest_frp": 80.94, "status": "no significant trend", "reason": "Only one day of data available, insufficient to determine a trend."}
+{"latitude": 37.85793, "longitude": 23.83252, "date_range": {"start_date": "2025-07-27", "end_date": "2025-07-29"}, "bright_ti4_values": [{"date": "2025-07-27", "value": 313.63}, {"date": "2025-07-29", "value": 339.05}], "trend_metrics": {"percent_increase": 8.1, "slope": 12.71, "average_increase_per_day": 8.1}, "latest_confidence": "n", "latest_frp": 8.29, "status": "fire emerging", "reason": "bright_ti4 increased by 8.1% over two days, with supporting FRP values (from 2.01 to 8.29) and nominal confidence."}

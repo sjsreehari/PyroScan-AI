@@ -34,7 +34,6 @@ Star us on GitHub if you like it! \n
 if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     banner()
     
-    
 if __name__ == "__main__":
     
     

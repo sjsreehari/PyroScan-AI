@@ -2,41 +2,97 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fire Predictions</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-      body {
-        font-family: Arial;
-        padding: 20px;
-        background-color: #f4f4f4;
-      }
-      .card {
-        background: white;
-        padding: 15px;
-        margin-bottom: 20px;
-        border-left: 5px solid #f44336;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>🔥 Fire Predictions</h1>
+  <body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+      <h1 class="text-5xl font-extrabold text-gray-900 mb-12 text-center">
+        🔥 Fire Predictions
+      </h1>
 
-    {% for item in data %}
-    <div class="card">
-      <strong>Status:</strong> {{ item.status }}<br />
-      <strong>Location:</strong> {{ item.representative_latitude }}, {{
-      item.representative_longitude }}<br />
-      <strong>Date Range:</strong> {{ item.date_range.start_date }} to {{
-      item.date_range.end_date }}<br />
-      <strong>Brightness (TI4):</strong> {{ item.bright_ti4_values | join(", ")
-      }}<br />
-      <strong>Trend Slope:</strong> {{ item.trend_metrics.slope }},
-      <strong>% Increase:</strong> {{ item.trend_metrics.percent_increase }}%<br />
-      <strong>Latest FRP:</strong> {{ item.latest_frp }} |
-      <strong>Confidence:</strong> {{ item.latest_confidence }}<br />
-      <strong>Reason:</strong> {{ item.reason }}
+      <div id="predictions-container" class="space-y-10"></div>
     </div>
-    {% endfor %}
+
+    <script>
+      async function loadPredictions() {
+        try {
+          const container = document.getElementById("predictions-container");
+          container.innerHTML = `
+            <div class="flex justify-center items-center py-16">
+              <div class="animate-spin rounded-full h-16 w-16 border-4 border-gray-300 border-t-red-500"></div>
+            </div>
+          `;
+
+          const response = await fetch("/api/v1/predictions");
+          const result = await response.json();
+
+          if (result.status_code !== 200) {
+            container.innerHTML = `
+              <div class="bg-red-100 border border-red-400 text-red-800 px-6 py-5 rounded-md shadow-md text-xl" role="alert">
+                <p class="font-bold text-2xl mb-2">Error:</p>
+                <p>${result.message}</p>
+              </div>
+            `;
+            return;
+          }
+
+          if (result.data.length === 0) {
+            container.innerHTML = `
+              <div class="bg-gray-100 text-center py-12 rounded-md">
+                <p class="text-2xl text-gray-600 font-medium">No fire predictions available at this time.</p>
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = '';
+          result.data.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "bg-white p-8 rounded-xl shadow-lg border-l-8 border-red-500 hover:shadow-2xl transition-shadow duration-300";
+
+            const dateRange = Array.isArray(item.date_range)
+              ? item.date_range.join(" to ")
+              : `${item.date_range?.start_date ?? "N/A"} to ${item.date_range?.end_date ?? "N/A"}`;
+
+            const brightTi4 = Array.isArray(item.bright_ti4_values)
+              ? item.bright_ti4_values.join(", ")
+              : JSON.stringify(item.bright_ti4_values ?? {});
+
+            card.innerHTML = `
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-xl font-semibold text-gray-700">Status:</span>
+                <span class="px-4 py-2 rounded-full text-base font-bold ${item.status === 'High risk' ? 'bg-red-600 text-white' : 'bg-orange-500 text-white'}">${item.status}</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800 text-lg">
+                <div>
+                  <p><strong class="text-gray-900">📍 Location:</strong> ${item.representative_latitude ?? item.latitude}, ${item.representative_longitude ?? item.longitude}</p>
+                  <p><strong class="text-gray-900">📅 Date Range:</strong> ${dateRange}</p>
+                  <p><strong class="text-gray-900">🔍 Reason:</strong> ${item.reason}</p>
+                </div>
+                <div>
+                  <p><strong class="text-gray-900">🔥 Brightness (TI4):</strong> ${brightTi4}</p>
+                  <p><strong class="text-gray-900">📈 Trend Slope:</strong> ${item.trend_metrics?.slope ?? "N/A"} | <strong>📊 % Increase:</strong> ${item.trend_metrics?.percent_increase ?? "N/A"}%</p>
+                  <p><strong class="text-gray-900">🆕 Latest FRP:</strong> ${item.latest_frp ?? "N/A"} | <strong>✅ Confidence:</strong> ${item.latest_confidence ?? "N/A"}</p>
+                </div>
+              </div>
+            `;
+
+            container.appendChild(card);
+          });
+        } catch (error) {
+          console.error("Fetch error:", error);
+          document.getElementById("predictions-container").innerHTML = `
+            <div class="bg-red-100 border border-red-400 text-red-800 px-6 py-5 rounded-md shadow-md text-xl" role="alert">
+              <p class="font-bold text-2xl mb-2">Error fetching predictions.</p>
+              <p>Please check your network connection and try again.</p>
+            </div>
+          `;
+        }
+      }
+
+      loadPredictions();
+    </script>
   </body>
 </html>
