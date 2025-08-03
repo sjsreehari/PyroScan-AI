@@ -31,7 +31,7 @@ def PredictFirePlaces():
 
     json_str = response.content.strip("```json\n").strip("```")
 
-    fire_trends = json.loads(json_str)
+    fire_trends = json.loads(json_str)[0]
 
 
     with open(save_path, "a") as f:
