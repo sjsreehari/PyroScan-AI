@@ -11,9 +11,7 @@ def root():
         "status_code": 200,
         "message": "PyroScan-AI API v1 - Ready for fire risk predictions. Use `/predictions` to view fire risk dashboard."
     })
-
-
-
+    
 @app.route("/api/v1/predictions", methods=["GET"])
 def log_predictions():
     load_predictions = os.path.join(os.getcwd(), "src", "db", "report.json")
@@ -43,7 +41,6 @@ def log_predictions():
         
         
         
-
 @app.route("/predictions", methods=["GET"])
 def html_predictions():
     file_path = os.path.join(os.getcwd(), "src", "db", "report.json")
