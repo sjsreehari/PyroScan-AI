@@ -131,11 +131,13 @@ This will:
 python main.py
 ```
 
-### Running the Web Server
+### Running on Docker
 
 ```bash
-python src/server/app.py
+docker build -t pyroscan-ai .
 ```
+
+
 
 ## Data Sources
 
