@@ -16,7 +16,7 @@ def run_every_30_minutes():
         print("Running scheduled task...")
         get_fire_data()
         PredictFirePlaces()
-        time.sleep(30)  # 30 minutes = 1800 seconds
+        time.sleep(30)  #30s set for testing purpose, change to 30min later
 
 def start_scheduler():
     threading.Thread(target=run_every_30_minutes, daemon=True).start()
