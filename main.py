@@ -2,7 +2,7 @@
 
 from colorama import Fore, Style, init
 import os
-from agent.main_agent import main_agent
+from src.agent.main_agent import main_agent
 
 
 init(autoreset=True)
