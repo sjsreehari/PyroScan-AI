@@ -22,14 +22,12 @@ def PredictFireOccuringPlace(locations):
             """
 
             
-def weatherPrompt(locations: list[dict]) -> str:
+def weatherPrompt(locations: list[str]) -> str:
     prompt = "You are a weather analysis agent. Use the Weather tool to get weather data for the following coordinates:\n\n"
-    for i, loc in enumerate(locations, 1):
-        prompt += f"{i}. lat: {loc['lat']}, lon: {loc['lon']}\n"
+    for i, loc_str in enumerate(locations, 1):
+        prompt += f"{i}. {loc_str}\n"
     prompt += "\nReturn the summary for each location.\n"
     return prompt
-
-
 
 
 

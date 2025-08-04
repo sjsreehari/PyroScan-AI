@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
 from src.tools.fire_data import fire_data
-from src.tools.weather_data import weather_data
+from src.tools.weather_data import get_weather_data_tool
 from src.tools.web_search import go_websearch
 
 
@@ -28,11 +28,11 @@ def get_weather_data_tool(lat: float, lon: float) -> str:
     Args:
         lat (float): Latitude of the location.
         lon (float): Longitude of the location.
-a
+
     Returns:
         str: Weather data for the location.
     """
-    return weather_data(lat, lon)
+    return get_weather_data_tool(lat, lon)
 
 
 @tool
