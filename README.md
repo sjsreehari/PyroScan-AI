@@ -86,79 +86,38 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 ## Project Structure
 
 ```
-PyroScan-AI/
-├── main.py                   # Main application entry point
-├── requirements.txt          # Python dependencies
-├── src/
-│   ├── agent/               # AI agent components
-│   │   ├── decision_maker.py
-│   │   └── prompt.py
-│   ├── data/                # Data files
-│   │   └── danger-zone.csv
-│   ├── db/                  # Database and storage
-│   │   ├── report.json
-│   │   ├── fire_data_by_danger_zone.csv
-│   │   ├── fire_data_location.csv
-│   │   └── filtered_fire_data.csv
-│   ├── executables/         # Executable scripts
-│   │   └── executable.py
-│   ├── server/              # Web server components
-│   │   ├── app.py
-│   ├── tools/               # Core tools and utilities
-│   │   ├── fire_data.py     # Fire data fetching and processing
-│   └── utils/               # Utility functions
-│       ├── get_coordinates.py
-│       └── unique_id.py
-└── venv/                    # Virtual environment
+PyroScan-AI
+├─ .dockerignore
+├─ Dockerfile
+├─ main.py
+├─ pyroscan-ai.toml
+├─ README.md
+├─ requirements.txt
+├─ run.sh
+├─ src
+│  ├─ agent
+│  │  ├─ fire_spot_agent.py
+│  │  ├─ main_agent.py
+│  │  ├─ prompt.py
+│  │  ├─ weather_agent.py
+│  │  └─ web_search_agent.py
+│  ├─ data
+│  │  └─ danger-zone.csv
+│  ├─ db
+│  ├─ server
+│  │  └─ app.py
+│  │   
+│  ├─ tools
+│  │  ├─ fire_data.py
+│  │  ├─ runnable.py
+│  │  ├─ weather_data.py
+│  │  └─ web_search.py
+│  └─ utils
+│     ├─ get_cordinates.py
+│     └─ unique_id.py
+└─ workflow.mmd
 ```
 
-## System Architecture & Agent Flow
-
-```mermaid
-flowchart TD
-    subgraph User
-        U["User / Analyst"]
-    end
-    subgraph Agents
-        MainAgent["Main Agent"]
-        FireSpotAgent["Fire Spot Agent"]
-        WeatherAgent["Weather Agent"]
-        WebSearchAgent["Web Search Agent"]
-        RiskScoreAgent["Risk Score Agent"]
-    end
-    subgraph Tools
-        FireDataTool["Fire Data Tool\n(NASA FIRMS)"]
-        WeatherDataTool["Weather Data Tool"]
-        WebSearchTool["Historical Data Tool"]
-    end
-    subgraph Data
-        DangerZone["danger-zone.csv"]
-        SatelliteAPI["NASA FIRMS API"]
-        WeatherAPI["Weather API"]
-        Web["Web Search"]
-    end
-    U --> MainAgent
-    MainAgent --> FireSpotAgent
-    MainAgent --> WeatherAgent
-    MainAgent --> WebSearchAgent
-    MainAgent --> RiskScoreAgent
-    FireSpotAgent --> FireDataTool
-    WeatherAgent --> WeatherDataTool
-    WebSearchAgent --> WebSearchTool
-    RiskScoreAgent --> FireDataTool
-    RiskScoreAgent --> WeatherDataTool
-    RiskScoreAgent --> WebSearchTool
-    FireDataTool --> SatelliteAPI
-    WeatherDataTool --> WeatherAPI
-    WebSearchTool --> Web
-    MainAgent --> DangerZone
-    RiskScoreAgent --> DangerZone
-    DangerZone -.-> MainAgent
-    DangerZone -.-> RiskScoreAgent
-    SatelliteAPI -.-> FireDataTool
-    WeatherAPI -.-> WeatherDataTool
-    Web -.-> WebSearchTool
-```
 
 ### Risk Score Agent
 
