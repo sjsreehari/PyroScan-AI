@@ -37,7 +37,7 @@ PyroScan AI employs a sophisticated multi-agent architecture where specialized A
 ```mermaid
 ---
 config:
-  theme: base
+  theme: default
   look: classic
   themeVariables:
       background: '#ffffff'
