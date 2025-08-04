@@ -26,11 +26,20 @@ def final_output_data_processing_agent():
     response = llm.invoke([HumanMessage(content=prompt)])
     processed_data = response.content
 
-    # Try converting to JSON
-    try:
-        processed_json = json.loads(processed_data)
-    except json.JSONDecodeError:
-        processed_json = {"processed_text": processed_data}
+    # Try robustly extracting JSON from LLM output
+    import re
+    match = re.search(r'\[.*?\]', processed_data, re.DOTALL)
+    if match:
+        json_str = match.group(0)
+        try:
+            processed_json = json.loads(json_str)
+        except Exception as e:
+            processed_json = {"error": f"JSON parsing failed: {str(e)}", "raw": json_str}
+    else:
+        try:
+            processed_json = json.loads(processed_data)
+        except Exception as e:
+            processed_json = {"error": "No JSON array found in output", "raw": processed_data}
 
     # Save processed data
     with open(save_processed_file, "w") as f:
