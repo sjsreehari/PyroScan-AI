@@ -38,10 +38,11 @@ PyroScan AI employs a sophisticated multi-agent architecture where specialized A
 ---
 config:
   theme: base
-  look: classic
-  themeVariables:
-    background: '#ffffff'
   layout: fixed
+  themeVariables:
+    background: '#ffffff'      # White background block
+    lineColor: '#000000'       # Black arrows/edges
+    textColor: '#000000'       # Black text
 ---
 flowchart TD
  subgraph subGraph0["Memory System"]
@@ -71,13 +72,13 @@ flowchart TD
     classDef Rose stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
     classDef Pine stroke-width:1px, stroke-dasharray:none, stroke:#254336, fill:#27654A, color:#FFFFFF
     classDef Peach stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
-    classDef Class_02 fill:#E1BEE7, stroke:#000000
+    classDef Class_02 fill:#E1BEE7, stroke:#000000, color:#000000
     style A2 fill:#C8E6C9
     style A fill:#E1BEE7,stroke-width:1px,stroke-dasharray: 0,stroke:#000000,color:#000000
     style D fill:#E1BEE7,stroke:#000000,color:#000000
-    style B1 fill:#FFCDD2
-    style C1 fill:#FFCDD2
-    style D1 fill:#FFCDD2
+    style B1 fill:#FFCDD2,stroke:#000000,color:#000000
+    style C1 fill:#FFCDD2,stroke:#000000,color:#000000
+    style D1 fill:#FFCDD2,stroke:#000000,color:#000000
 
 
 ```
