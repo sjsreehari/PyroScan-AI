@@ -5,8 +5,8 @@
 PyroScan AI is an advanced **multi-agent artificial intelligence system** designed to predict, monitor, and analyze forest fires using real-time satellite data from NASA FIRMS API, weather information, and historical fire data. The system employs a sophisticated agentic architecture with specialized AI agents working collaboratively to provide comprehensive fire risk assessment and early warning capabilities for critical forest regions worldwide.
 
 This project is built and developed by
-   -Sreehari S J
-   -Aromal S
+   - *Sreehari S J*
+   - *Aromal S*
 
 ## Key Features
 
