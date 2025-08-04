@@ -26,6 +26,23 @@ The system monitors fire incidents in these critical forest regions:
 - **Mato Grosso** (Brazil)
 - **Los Angeles National Forest** (USA)
 
+# System Artitechture
+
+
+```mermaid
+graph TD
+    A[Main Agent<br> Multi-Agent Controller] --> B[Weather Agent<br>Gets live weather]
+    A --> C[Fire History Agent<br> Web search]
+    A --> D[Satellite Agent<br> NASA FIRMS API]
+    B --> B1[WeatherTool<br>Coordinates -> Forecast]
+    C --> C1[WebSearchTool<br>Location -> Fire News]
+    D --> D1[SatelliteTool<br>Location -> Fire Detection]
+
+    subgraph Memory
+      A2[ConversationBufferMemory]
+          A --> A2
+```
+
 ## Installation
 
 ### Prerequisites
