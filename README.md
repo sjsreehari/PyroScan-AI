@@ -43,11 +43,6 @@ This project is built and developed by
 - **Agentic Decision Making**: Advanced AI analysis and prediction capabilities
 - **Geographic Analysis**: Location-based fire risk assessment and mapping
 
-<video width="100%" controls>
-  <source src="https://github.com/sjsreehari/PyroScan-AI/raw/main/src/assets/demo-video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 
 ## Target Monitoring Regions
 
@@ -302,4 +297,3 @@ PyroScan AI is designed for research and monitoring purposes. Always follow loca
 
 
 **⭐ Drop a star on GitHub if you find PyroScan AI useful!**
-![alt text](image.png)
