@@ -2,55 +2,36 @@
 This is the agent that gets weather data
 """
 
+from src.tools.weather_data import weather_data
 import os
-from langchain_openai import ChatOpenAI
-from langchain.tools import Tool
-from langchain.memory import ConversationBufferMemory
-from langchain.agents import initialize_agent, AgentType
-from pydantic import BaseModel
-
-
-from src.tools.runnable import get_weather_data_tool 
-from src.agent.prompt import weatherPrompt
-
-
-
-class WeatherToolInput(BaseModel):
-    lat: float
-    lon: float
-
 
 def analyse_the_weather(target_locations):
+    print("weather place analysis started.....")
     
+    try:
+        # Handle different input formats
+        if isinstance(target_locations, str):
+            # Parse coordinates from string format "lat,lon"
+            coords = target_locations.strip().split(',')
+            if len(coords) == 2:
+                lat = float(coords[0].strip())
+                lon = float(coords[1].strip())
+                return weather_data(lat, lon)
         
-    
-    tool = [
-    Tool(
-        name="Weather tool",
-        description="Retrieve current weather for latitude and longitude.",
-        func=get_weather_data_tool,
-        args_schema=WeatherToolInput,
-    )
-]
-    
-    llm = ChatOpenAI(
-        model="deepseek/deepseek-chat-v3-0324:free",
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.getenv("OPENROUTER_API_KEY")
-    )
-
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
-    agent = initialize_agent(
-        tools=tool,
-        llm=llm,
-        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-        memory=memory,
-        verbose=True,
-    )
-
-    prompt = "You are a weather agent. For each location, provide input to Weather tool as JSON with keys lat and lon.\n\nLocations:\n"
-    for loc in target_locations:
-        prompt += f"- lat: {loc['lat']}, lon: {loc['lon']}\n"
-
-    agent.run(prompt)
+        elif isinstance(target_locations, dict):
+            # Handle dictionary format
+            lat = target_locations.get('lat', 0)
+            lon = target_locations.get('lon', 0)
+            return weather_data(lat, lon)
+        
+        elif isinstance(target_locations, (list, tuple)) and len(target_locations) >= 2:
+            # Handle list/tuple format
+            lat = float(target_locations[0])
+            lon = float(target_locations[1])
+            return weather_data(lat, lon)
+            
+        else:
+            return "Invalid location format provided. Expected format: 'lat,lon' or dict with lat/lon keys"
+            
+    except Exception as e:
+        return f"Error analyzing weather: {str(e)}"
