@@ -1,13 +1,15 @@
-from src.server.app import app
+# from src.server.app import app
+
 from colorama import Fore, Style, init
 import os
+from agent.main_agent import main_agent
 
 
 init(autoreset=True)
 
 def banner():
     print(
-        Fore.RED + r"""
+        Fore.GREEN + r"""
         
  /$$$$$$$  /$$     /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$   /$$        /$$$$$$  /$$$$$$
 | $$__  $$|  $$   /$$/| $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$$ | $$       /$$__  $$|_  $$_/
@@ -31,11 +33,12 @@ Star us on GitHub if you like it! \n
     )
 
 
-if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-    banner()
+# if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+banner()
+# executable()
+main_agent()
+# if __name__ == "__main__":
     
-if __name__ == "__main__":
     
-    
-    app.run(host="0.0.0.0", port=8434, debug=True)
+#     app.run(host="0.0.0.0", port=8434, debug=True)
 

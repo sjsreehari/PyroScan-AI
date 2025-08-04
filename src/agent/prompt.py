@@ -1,4 +1,4 @@
-
+import json
 
 
 def PredictFireOccuringPlace(csv_chunk):
@@ -47,5 +47,73 @@ def PredictFireOccuringPlace(csv_chunk):
 
             CSV Data:
             {csv_chunk}
+            
+            """
+            
+def weatherPrompt(locations):
+    return f"""
+            you are a good weather looking agent using this location json 
+            
+            
+            check each place weather conditions using the longitude latitude in json
 
+            {locations}
+
+            """
+            
+def goWebSearchPrompt(location):
+    return f"""
+            You are a great Websearch specialist you search for the location name to find out
+            the historical fire incidents
+            {location}
+            """
+
+
+def mainPrompt(location):
+    return f"""
+            You are a Forest Fire Prediction Controller Agent.
+
+            Your goal is to predict the likelihood of forest fires at different locations using three supporting agents:
+            1. Weather Agent — provides current weather for a given latitude and longitude.
+            2. Satellite Agent — checks active fire signals from satellite data.
+            3. Fire History Agent — retrieves past fire incidents for the location.
+
+            You will be given a list of locations in this format:
+            [
+                {{
+                    "Location": "Amazon ",
+                    "Latitude": -3.4653,
+                    "Longitude": -62.2159
+                }},
+                ...
+            ]
+
+            For each location:
+            - Use the Weather Agent to check conditions like temperature, humidity, and wind.
+            - Use the Satellite Agent to detect any nearby current fires.
+            - Use the Fire History Agent to check for historical fire patterns.
+
+            Based on all the data:
+            - Predict whether the location is at High, Moderate, or Low risk for a forest fire.
+            - Justify your prediction clearly using weather, satellite, and historical data.
+
+            Return the final result in the following JSON format ONLY, without any additional text or explanation:
+
+            [
+                {{
+                    "Location": "Amazon ",
+                    "Prediction": "High",
+                    "Reason": "High temperature, dry weather, previous fire history, and recent satellite fire signals detected."
+                }},
+                ...
+            ]
+
+            Begin the prediction task now using the input location list:
+            
+            {json.dumps(location, indent=4)}
+
+            IMPORTANT:
+            - Do NOT ask any questions.
+            - Do NOT wait for any user input.
+            - Provide ONLY the JSON result with no extra text.
             """

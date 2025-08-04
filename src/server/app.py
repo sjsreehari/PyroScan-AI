@@ -4,7 +4,7 @@ import json
 import threading
 import time
 # from src.executables.executable import executable
-from src.agent.desicion_maker import PredictFirePlaces
+from agent.main_agent import PredictFirePlaces
 
 
 app = Flask(__name__, static_folder="static", template_folder="static/templates")
