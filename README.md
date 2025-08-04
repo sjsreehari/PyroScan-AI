@@ -1,15 +1,14 @@
-#  PyroScan AI - Agentic AI For Forest Fire Prediction 
+# PyroScan AI - Agentic AI For Forest Fire Prediction
 
 PyroScan AI is an intelligent agentic AI system designed to predict and monitor forest fires using real-time satellite data from NASA FIRMS API and advanced machine learning techniques. The system provides early warning capabilities and comprehensive fire risk assessment for critical forest regions worldwide.
 
-##  Features
+## Features
 
 - **Real-time Fire Detection**: Fetches live fire data from NASA FIRMS satellite API
 - **Multi-Region Monitoring**: Tracks fire incidents in 10 critical forest regions globally
 - **Intelligent Filtering**: Filters fire data based on proximity to high-risk areas
 - **Agentic Decision Making**: AI-powered analysis and prediction capabilities
 - **Geographic Analysis**: Location-based fire risk assessment
-
 
 ## Target Monitoring Regions
 
@@ -26,6 +25,25 @@ The system monitors fire incidents in these critical forest regions:
 - **Mato Grosso** (Brazil)
 - **Los Angeles National Forest** (USA)
 
+# System Artitechture
+
+```mermaid
+graph TD
+    A[Main Agent<br/>Multi-Agent Controller] --> B[Weather Agent<br/>Gets live weather data]
+    A --> C[Fire History Agent<br/>Fetches fire-related news]
+    A --> D[Satellite Agent<br/>NASA FIRMS API for fire detection]
+
+    B --> B1[WeatherTool<br/>Coordinates → Weather Forecast]
+    C --> C1[WebSearchTool<br/>Location → Fire News]
+    D --> D1[SatelliteTool<br/>Location → Fire Detection]
+
+    subgraph Memory
+        A2[ConversationBufferMemory]
+    end
+
+    A --> A2
+```
+
 ## Installation
 
 ### Prerequisites
@@ -36,18 +54,20 @@ The system monitors fire incidents in these critical forest regions:
 ### Setup Instructions
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/DeveloperAromal/PyroScan-AI.git
    cd PyroScan-AI
    ```
 
 2. **Create a virtual environment (recommended)**
+
    ```bash
    python -m venv venv
-   
+
    # On Windows
    venv\Scripts\activate
-   
+
    # On macOS/Linux
    source venv/bin/activate
    ```
@@ -57,15 +77,17 @@ The system monitors fire incidents in these critical forest regions:
    pip install -r requirements.txt
    ```
 
-##  API Keys Setup
+## API Keys Setup
 
 PyroScan AI requires API keys for external services. Create a `.env` file in the project root with the following keys:
 
 ### Required API Keys
 
 1. **NASA FIRMS API Key**
+
    - Get your API key from: https://firms.modaps.eosdis.nasa.gov/api/
    - Add to `.env` file:
+
    ```
    NASA_FIRM_API_KEY=your_nasa_api_key_here
    ```
@@ -78,6 +100,7 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
    ```
 
 ### Example `.env` file:
+
 ```
 NASA_FIRM_API_KEY=9b****************04c6ee
 OPENROUTER_API_KEY=your_openrouter_api_key_here
@@ -85,6 +108,7 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 ## Project Structure
 
+```
 PyroScan-AI
 ├─ .dockerignore
 ├─ Dockerfile
@@ -98,17 +122,14 @@ PyroScan-AI
 │  │  ├─ fire_spot_agent.py
 │  │  ├─ main_agent.py
 │  │  ├─ prompt.py
-│  │  ├─ risk_score_agent.py
 │  │  ├─ weather_agent.py
 │  │  └─ web_search_agent.py
 │  ├─ data
 │  │  └─ danger-zone.csv
 │  ├─ db
 │  ├─ server
-│  │  ├─ app.py
-│  │  └─ static
-│  │     └─ templates
-│  │        └─ predictions.html
+│  │  └─ app.py
+│  │
 │  ├─ tools
 │  │  ├─ fire_data.py
 │  │  ├─ runnable.py
@@ -118,7 +139,6 @@ PyroScan-AI
 │     ├─ get_cordinates.py
 │     └─ unique_id.py
 └─ workflow.mmd
-
 ```
 
 ## Usage
@@ -130,6 +150,7 @@ python src/tools/fire_data.py
 ```
 
 This will:
+
 - Fetch real-time fire data from NASA FIRMS API
 - Filter data for monitored regions
 - Save filtered data to `src/db/filtered_fire_data.csv`
@@ -147,8 +168,6 @@ docker build -t pyroscan-ai .
 
 docker run -p 8483:8483 --env-file .env pyroscan-ai
 ```
-
-
 
 ## Data Sources
 
@@ -169,8 +188,6 @@ docker run -p 8483:8483 --env-file .env pyroscan-ai
 - Geographic proximity analysis
 - Risk assessment algorithms
 
-
-
 ## Flowchart
 
 ![Diagram](workflow.mmd)
@@ -179,6 +196,8 @@ docker run -p 8483:8483 --env-file .env pyroscan-ai
 
 PyroScan AI is designed for research and monitoring purposes. Always follow local emergency protocols and contact appropriate authorities in case of actual fire emergencies.
 
+**Drop a star on GitHub if you like it!**
 
-**Drop a star on GitHub if you like it!** 
+```
+
 ```
