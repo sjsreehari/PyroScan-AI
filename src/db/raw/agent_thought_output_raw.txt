@@ -1,48 +1,162 @@
 === AGENT LOGIC & TOOL OUTPUTS ===
 
 
-Agent Action: Tool='Weather tool', Input='lat=-3.4653, lon=-62.2159', Log='Thought: I need to gather weather data, check for current fires via satellite, and research historical fire incidents for both locations to make a prediction.
+Agent Action: Tool='Weather tool', Input='lat=-3.4653, lon=-62.2159', Log='Thought: To predict the likelihood of forest fires, I need to gather current weather data, check for active fires via satellite, and review historical fire incidents for both locations. I will proceed step by step for each location.
 
 Action: Weather tool  
 Action Input: "lat=-3.4653, lon=-62.2159"  '
-Agent Action: Tool='Weather tool', Input='-3.4653,-62.2159', Log='Thought: I need to correct the input format for the weather tool.
-
-Action: Weather tool  
-Action Input: -3.4653,-62.2159  '
-Agent Action: Tool='Fire data extractor', Input='-3.4653,-62.2159', Log='Thought: Now I need to check for current fires via satellite for the Amazon Rainforest.
+Agent Action: Tool='Fire data extractor', Input='lat=-3.4653, lon=-62.2159', Log='Thought: The weather data shows high temperature and moderate humidity for the Amazon Rainforest. Next, I will check for active fire signals via satellite.
 
 Action: Fire data extractor  
-Action Input: -3.4653,-62.2159  '
-Agent Action: Tool='Websearch tool', Input='Amazon Rainforest', Log='Thought: The satellite data request timed out, so I'll proceed with weather and historical data for now. Next, I'll check historical fire incidents for the Amazon Rainforest.
+Action Input: "lat=-3.4653, lon=-62.2159"  '
+Agent Action: Tool='Websearch tool', Input='Amazon Rainforest', Log='Thought: The satellite data request for the Amazon Rainforest timed out, so I cannot determine current fire signals. I will now check historical fire incidents.
 
 Action: Websearch tool  
 Action Input: "Amazon Rainforest"  '
-Agent Action: Tool='Weather tool', Input='36.7783,-119.4179', Log='Thought: Since the satellite data timed out and historical data is inconclusive, I'll rely on the current weather data for the Amazon Rainforest. High temperature and low humidity indicate a potential risk, but without satellite or historical confirmation, the risk is uncertain.  
+Agent Action: Tool='Weather tool', Input='lat=36.7783, lon=-119.4179', Log='Thought: Based on the high temperature, partly cloudy conditions, and reports of possible active wildfires, the Amazon Rainforest is at risk. However, without current satellite data, I will rely on weather and historical reports.
 
-Now, I'll proceed to analyze the California Wildlands location.
+Now, I will analyze the California Wildlands.
 
 Action: Weather tool  
-Action Input: 36.7783,-119.4179  '
-Agent Action: Tool='Fire data extractor', Input='36.7783,-119.4179', Log='Thought: Now I need to check for current fires via satellite for the California Wildlands.
+Action Input: "lat=36.7783, lon=-119.4179"  '
+Agent Action: Tool='Fire data extractor', Input='lat=36.7783, lon=-119.4179', Log='Thought: The California Wildlands have high temperature, low humidity, and moderate wind speeds, which are risk factors for fires. I will now check for active fire signals via satellite.
 
 Action: Fire data extractor  
-Action Input: 36.7783,-119.4179  '
-Agent Action: Tool='Websearch tool', Input='California Wildlands', Log='Thought: The satellite data request also timed out for California Wildlands. Now, I'll check historical fire incidents for this location.
+Action Input: "lat=36.7783, lon=-119.4179"  '
+Agent Action: Tool='Websearch tool', Input='California Wildlands', Log='Thought: The satellite data request for the California Wildlands also timed out, so I cannot determine current fire signals. I will now check historical fire incidents.
 
 Action: Websearch tool  
 Action Input: "California Wildlands"  '
-Agent Final Answer: [
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='Thought: Based on the gathered data, I can now make predictions for both locations. The Amazon Rainforest has high temperature and moderate humidity, with historical wildfire reports, indicating a risk. The California Wildlands have high temperature, very low humidity, and moderate wind speeds, along with historical wildfire reports, suggesting a higher risk. 
+
+Here is the final JSON output:
+
+```json
+[
     {
         "Location": "Amazon Rainforest",
         "Prediction": "Moderate",
-        "Reason": "High temperature and low humidity, but satellite and historical data unavailable for confirmation."
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
     },
     {
         "Location": "California Wildlands",
-        "Prediction": "Low",
-        "Reason": "Moderate temperature and humidity, but satellite and historical data unavailable for confirmation."
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
     }
 ]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Action: Tool='_Exception', Input='Invalid Format: Missing 'Action:' after 'Thought:', Log='```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```'
+Agent Final Answer: ```json
+[
+    {
+        "Location": "Amazon Rainforest",
+        "Prediction": "Moderate",
+        "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+    },
+    {
+        "Location": "California Wildlands",
+        "Prediction": "High",
+        "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+    }
+]
+```
 
 === TOOL RAW OUTPUTS ===
 

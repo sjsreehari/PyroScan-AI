@@ -77,6 +77,8 @@ def main_agent():
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("OPENROUTER_API_KEY")
         )
+        
+        
     except Exception as e:
         print(f"Warning: OpenRouter failed, trying OpenAI: {e}")
         llm = ChatOpenAI(
