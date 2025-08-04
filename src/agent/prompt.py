@@ -1,72 +1,46 @@
 import json
 
 
-def PredictFireOccuringPlace(csv_chunk):
+def PredictFireOccuringPlace(locations):
+
+
     return f"""
-            You are a wildfire trend detection assistant.
+            You are an intelligent agent tasked with analyzing potential forest fire occurrences using real-time satellite data.
+            You have access to a tool named "Fire data" which retrieves fire activity data from the NASA FIRMS API based on a given latitude and longitude.
 
-            You are given CSV data of satellite fire observations. Columns:
-                - latitude
-                - longitude
-                - bright_ti4 (thermal brightness temperature)
-                - scan
-                - track
-                - acq_date (YYYY-MM-DD)
-                - acq_time
-                - satellite
-                - instrument
-                - confidence (n = nominal, l = low, h = high)
-                - version
-                - bright_ti5
-                - frp (Fire Radiative Power)
-                - daynight (D/N)
+            Your goal is to:
+            1. Use the "Fire data" tool to check for recent fire activity at each provided location.
+            2. Analyze the returned data to identify which regions are currently at risk or showing signs of fire activity.
+            3. Provide a detailed report on your findings, indicating which locations are safe, at risk, or actively burning.
+            4. Be concise but informative — use the tool wisely to fetch relevant data only for the listed locations.
 
-            Your goal is to identify locations where a fire is *emerging or ongoing* based on a **temporal trend**: specifically, if `bright_ti4` shows a **consistent increase across consecutive days** at the same or nearby coordinates.
-
-            Instructions:
-                1. **Cluster observations** that are spatially close (within ~0.2° latitude/longitude) to represent the same site.
-                2. For each cluster, aggregate by date (e.g., daily average `bright_ti4`, `frp`, and highest `confidence`).
-                3. Compute the trend of `bright_ti4` over time (at least the last 2–4 days). You may use simple linear regression or percent increase.
-                4. Mark a location as **"fire likely happening"** if:
-                - `bright_ti4` has increased for **at least two consecutive days**, AND
-                - The **slope** of `bright_ti4` vs. time is positive and exceeds a modest threshold (e.g., average increase ≥ 5% per day or slope significantly above noise), OR the cumulative increase over the period is substantial, AND
-                - `confidence` is not low for the most recent day (preferably nominal or high), OR supporting evidence like rising `frp`.
-                5. Suppress false positives: ignore isolated single-day spikes that do not form an upward trend.
-
-            Return a JSON array of detected fire trends. Each entry should include:
-                - representative latitude, longitude
-                - date range considered (start_date, end_date)
-                - recent `bright_ti4` values per day
-                - computed trend metrics (slope or percent increases)
-                - latest `confidence`
-                - latest `frp`
-                - status: one of ["fire emerging", "fire ongoing", "no significant trend"]
-                - reason: human-readable explanation for the decision
-
-            If no locations meet the criteria, return an empty list.
-
-            CSV Data:
-            {csv_chunk}
+            Here are the target locations to investigate:
             
-            """
-            
-def weatherPrompt(locations):
-    return f"""
-            you are a good weather looking agent using this location json 
-            
-            
-            check each place weather conditions using the longitude latitude in json
-
             {locations}
 
+            Begin your analysis.
             """
+
             
+def weatherPrompt(locations: list[dict]) -> str:
+    prompt = "You are a weather analysis agent. Use the Weather tool to get weather data for the following coordinates:\n\n"
+    for i, loc in enumerate(locations, 1):
+        prompt += f"{i}. lat: {loc['lat']}, lon: {loc['lon']}\n"
+    prompt += "\nReturn the summary for each location.\n"
+    return prompt
+
+
+
+
+
 def goWebSearchPrompt(location):
     return f"""
             You are a great Websearch specialist you search for the location name to find out
             the historical fire incidents
             {location}
             """
+
+
 
 
 def mainPrompt(location):
@@ -81,17 +55,17 @@ def mainPrompt(location):
             You will be given a list of locations in this format:
             [
                 {{
-                    "Location": "Amazon ",
-                    "Latitude": -3.4653,
-                    "Longitude": -62.2159
+                    "Location": "Name of location",
+                    "Latitude": It's latitude,
+                    "Longitude": It's longitude
                 }},
                 ...
             ]
 
             For each location:
-            - Use the Weather Agent to check conditions like temperature, humidity, and wind.
-            - Use the Satellite Agent to detect any nearby current fires.
-            - Use the Fire History Agent to check for historical fire patterns.
+            - Use the Weather Agent to check conditions like temperature, humidity, and wind. The input should be 'lat=<latitude>, lon=<longitude>'.
+            - Use the Satellite Agent to detect any nearby current fires. The input should be 'lat=<latitude>, lon=<longitude>'.
+            - Use the Fire History Agent to check for historical fire patterns. The input should be a string with the name of the location.
 
             Based on all the data:
             - Predict whether the location is at High, Moderate, or Low risk for a forest fire.
@@ -101,7 +75,7 @@ def mainPrompt(location):
 
             [
                 {{
-                    "Location": "Amazon ",
+                    "Location": "Name of location",
                     "Prediction": "High",
                     "Reason": "High temperature, dry weather, previous fire history, and recent satellite fire signals detected."
                 }},
@@ -116,4 +90,37 @@ def mainPrompt(location):
             - Do NOT ask any questions.
             - Do NOT wait for any user input.
             - Provide ONLY the JSON result with no extra text.
+            - IMPORTANT: Do not provide a Final Answer until all actions are completed. Only provide a Final Answer when the final JSON output is ready.
+            """
+            
+def OutputRawDataProcessorPrompt(raw_data: str) -> str:
+    return f"""
+            You are a Forest Fire Prediction Controller Agent.
+
+            Your goal is to **refine** the raw JSON text data into **well-formatted, clean JSON**, structured consistently and without semantic errors.  
+            **Do not** improvise, fabricate facts, or introduce new information—**preserve only what is present in the input JSON**.  
+            **Do not** summarize, explain, or provide any commentary or process steps outside the JSON response.
+
+            **Output Format:**  
+            Return the final result **strictly** in the following JSON format, **with no other text, explanations, or narrative**:
+
+            [
+                {{
+                    "Location": "Name of location",
+                    "Prediction": "High/Moderate/Low",
+                    "Reason": "Concise justification based strictly on the input data."
+                }},
+                ...
+            ]
+
+            **Rules:**  
+            - **Location** must match the input exactly.
+            - **Prediction** must use "High", "Moderate", or "Low" exactly as in the input; do not change these values.
+            - **Reason** must be a **direct, concise summary** of the justification in the input data; **do not** extrapolate or imagine new reasons.
+            - **Never** return anything outside the JSON array, **not even an empty line or a comment**.
+            - If the input is malformed, missing essential fields, or not in JSON, **return an empty array**: `[]`
+            - **Do not** generate synthetic data or fill in missing fields.
+
+            **Here is the raw text to extract JSON from:**
+            {raw_data}
             """

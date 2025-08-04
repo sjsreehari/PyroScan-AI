@@ -1,3 +1,12 @@
+"""
+This is the agent that gathers past incidents happend on that place using web search
+
+"""
+
+
+
+
+
 from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.agents import initialize_agent, AgentType
@@ -24,7 +33,7 @@ def analyse_historical_data(target_locations_name):
 
     tool = [
         Tool(
-            name="Fire data",
+            name="Websearch tool",
             description=    """
                             Performs a live web search for the given location and returns top results.
 
