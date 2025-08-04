@@ -38,7 +38,7 @@ PyroScan AI employs a sophisticated multi-agent architecture where specialized A
 ---
 config:
   theme: default
-  look: cbase
+  look: classic
   themeVariables:
       background: '#ffffff'
        lineColor: '#ffffff'
