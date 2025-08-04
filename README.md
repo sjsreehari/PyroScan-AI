@@ -35,7 +35,9 @@ The system monitors fire incidents in these critical forest regions:
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
 <img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/assets/system_architecture.png.png">
-##  Agent System Overview
+
+
+## Agent System Overview
 
 ### Main Agent (Controller)
 The **Main Agent** serves as the central coordinator of the multi-agent system, orchestrating communication between specialized agents and managing the overall fire analysis workflow.
