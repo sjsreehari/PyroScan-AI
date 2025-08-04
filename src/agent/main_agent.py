@@ -71,7 +71,6 @@ def main_agent():
     save_file = os.path.join("src/db/raw", "agent_thought_output_raw.txt")
 
      
-    # Try to use OpenRouter, fallback to OpenAI if rate limited
     try:
         llm = ChatOpenAI(
             model="deepseek/deepseek-chat-v3-0324:free",

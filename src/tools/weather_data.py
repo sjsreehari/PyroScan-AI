@@ -33,36 +33,47 @@ def weather_data(lat: float, lon: float) -> str:
         "q": f"{lat},{lon}"
     }
 
-    try:
-        print("[~] Fetching weather data...")
-        response = requests.get(base_url, params=params, timeout=10)
-        response.raise_for_status()
-        data = response.json()
+    import time
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            print(f"[~] Fetching weather data... (Attempt {attempt+1})")
+            response = requests.get(base_url, params=params, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+            break
+        except requests.exceptions.Timeout:
+            print(f"[x] WeatherAPI request timed out on attempt {attempt+1}.")
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                continue
+            return "WeatherAPI request timed out after multiple attempts."
+        except requests.exceptions.RequestException as e:
+            print(f"[x] WeatherAPI request failed on attempt {attempt+1}: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                continue
+            return f"WeatherAPI request failed after multiple attempts: {e}"
 
-        current = data.get("current", {})
-        location = data.get("location", {})
+    # If data was never set due to all retries failing, return error
+    if 'data' not in locals():
+        return "WeatherAPI failed to return data."
 
-        temp_c = current.get("temp_c", "N/A")
-        condition = current.get("condition", {}).get("text", "N/A")
-        wind_kph = current.get("wind_kph", "N/A")
-        humidity = current.get("humidity", "N/A")
-        local_time = location.get("localtime", "N/A")
+    current = data.get("current", {})
+    location = data.get("location", {})
 
-        summary = (
-            f"Weather at ({lat}, {lon}) [{location.get('name', 'Unknown')}]:\n"
-            f"Temperature: {temp_c} °C\n"
-            f"Condition: {condition}\n"
-            f"Wind Speed: {wind_kph} kph\n"
-            f"Humidity: {humidity}%\n"
-            f"Local Time: {local_time}"
-        )
-        return summary
+    temp_c = current.get("temp_c", "N/A")
+    condition = current.get("condition", {}).get("text", "N/A")
+    wind_kph = current.get("wind_kph", "N/A")
+    humidity = current.get("humidity", "N/A")
+    local_time = location.get("localtime", "N/A")
 
-    except requests.exceptions.Timeout:
-        return "[x] Request timed out."
-    except requests.exceptions.HTTPError as e:
-        return f"[x] HTTP error: {e}"
-    except requests.exceptions.RequestException as e:
-        return f"[x] Request failed: {e}"
-    except Exception as e:
-        return f"⚠ General error: {e}"
+    summary = (
+        f"Weather at ({lat}, {lon}) [{location.get('name', 'Unknown')}]:\n"
+        f"Temperature: {temp_c} °C\n"
+        f"Condition: {condition}\n"
+        f"Wind Speed: {wind_kph} kph\n"
+        f"Humidity: {humidity}%\n"
+        f"Local Time: {local_time}"
+    )
+    return summary
