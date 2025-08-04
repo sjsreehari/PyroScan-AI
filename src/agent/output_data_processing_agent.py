@@ -1,0 +1,30 @@
+import os
+import json
+from langchain_openai import ChatOpenAI
+from src.agent.prompt import OutputRawDataProcessorPrompt
+
+def final_output_data_processing_agent():
+    load_raw_file = os.path.join("src/db/raw", "agent_thought_output_raw.txt")
+    save_processed_file = os.path.join("src/db/processed", "prediction.json")
+
+    llm = ChatOpenAI(
+        model_name="deepseek/deepseek-chat-v3-0324:free",
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        temperature=0
+    )
+
+    with open(load_raw_file, "r") as f:
+        raw_data = f.read()
+
+    prompt = OutputRawDataProcessorPrompt(raw_data)
+
+    processed_data = llm(prompt)
+
+    try:
+        processed_json = json.loads(processed_data)
+    except json.JSONDecodeError:
+        processed_json = {"processed_text": processed_data}
+
+    with open(save_processed_file, "w") as f:
+        json.dump(processed_json, f, indent=2)

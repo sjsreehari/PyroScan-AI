@@ -1,7 +1,15 @@
+"""
+This is the agent that gets weather data
+
+"""
+
+
+
 from langchain_openai import ChatOpenAI
 from langchain.tools import Tool
 from langchain.memory import ConversationBufferMemory
 from langchain.agents import initialize_agent, AgentType
+from pydantic import BaseModel
 
 
 from src.tools.runnable import get_weather_data_tool
@@ -9,6 +17,16 @@ from src.agent.prompt import weatherPrompt
 import os
 
 
+
+
+class WeatherToolInput(BaseModel):
+    lat: float
+    lon: float
+    
+    
+    
+    
+    
 def analyse_the_weather(target_locations):
     
     print("weather place analysis started.....")
@@ -23,7 +41,7 @@ def analyse_the_weather(target_locations):
 
     tool = [
         Tool(
-            name="Fire data",
+            name="Weather tool",
             description="""
                         Retrieves current or forecasted weather data for given latitude and longitude.
 
@@ -34,7 +52,8 @@ def analyse_the_weather(target_locations):
                         Returns:
                             str: Weather data for the location.
                         """,
-            func=get_weather_data_tool
+            func=get_weather_data_tool,
+            args_schema=WeatherToolInput
         )
     ]
     
