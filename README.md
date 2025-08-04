@@ -39,6 +39,9 @@ PyroScan AI employs a sophisticated multi-agent architecture where specialized A
 config:
   theme: base
   look: classic
+  themeVariables:
+      background: '#ffffff'
+
 ---
 flowchart TD
  subgraph subGraph0["Memory System"]
