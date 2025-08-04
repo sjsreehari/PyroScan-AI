@@ -108,7 +108,7 @@ The **Web Search Agent** gathers historical fire data and recent news about fire
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/sjsreehari/PyroScan-AI.git
+   git clone https://github.com/DeveloperAromal/PyroScan-AI.git
    cd PyroScan-AI
    ```
 
