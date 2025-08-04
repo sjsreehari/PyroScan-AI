@@ -23,8 +23,7 @@ This project is built and developed by
 
 The system monitors fire incidents in these critical forest regions:
 
-- **Amazon Rainforest** (Brazil)
-- **California Wildlands** (USA)
+# PyroScan-AI
 - **British Columbia** (Canada)
 - **Siberia Forests** (Russia)
 - **Athens Outskirts** (Greece)
@@ -38,7 +37,7 @@ The system monitors fire incidents in these critical forest regions:
 
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
-<img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/assets/system_architecture.png.png">
+<img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/system_architecture.png.png">
 
 
 ## Agent System Overview
@@ -78,6 +77,20 @@ The **Weather Agent** focuses on weather analysis and its impact on fire risk as
 **Tools:**
 - `Weather data tool`: Retrieves current or forecasted weather data for given coordinates
 
+
+### Output Data Processing Agent
+The **Output Data Processing Agent** cleans, validates, and converts raw agent output into structured JSON predictions.
+
+**Capabilities:**
+- Extracts and cleans raw output from all agents
+- Validates and formats predictions
+- Handles malformed or incomplete data
+- Ensures final output is usable by downstream systems
+
+**Tools:**
+- `Output data processing tool`: Processes and converts raw agent output to clean JSON
+
+
 ### Web Search Agent
 The **Web Search Agent** gathers historical fire data and recent news about fire incidents.
 
@@ -91,14 +104,7 @@ The **Web Search Agent** gathers historical fire data and recent news about fire
 **Tools:**
 - `Web search tool`: Performs live web searches for location-specific fire information
 
-## Installation
-
-### Prerequisites
-
 - Python 3.8 or higher
-- pip package manager
-
-### Setup Instructions
 
 1. **Clone the repository**
    ```bash
@@ -142,6 +148,7 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
    OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 3. **Weather API Key**
+   - Get your API key from: https://www.weatherapi.com/login.aspx
    - Add to `.env` file:
    ```
    WEATHERAPI_API_KEY=your_weather_api_key_here
@@ -149,43 +156,58 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
 
 
 ### Example `.env` file:
-```
-NASA_FIRM_API_KEY=9b****************04c6ee
-OPENROUTER_API_KEY=your_openrouter_api_key_here
-WEATHERAPI_API_KEY=your_weather_api_key_here
-```
+   ```
+   NASA_FIRM_API_KEY=9b********************6ee
+   OPENROUTER_API_KEY=sk-or-v1-**************************************d7d
+   WEATHERAPI_API_KEY=59***********************704
+   ```
 
 ## Project Structure
 
 ```
-PyroScan-AI/
+PyroScan-AI
 ├─ .dockerignore
 ├─ Dockerfile
-├─ main.py                          # Main application entry point
-├─ pyroscan-ai.toml                 # Configuration file
+├─ LICENSE
+├─ main.py
+├─ pyroscan-ai.toml
 ├─ README.md
-├─ requirements.txt                 # Python dependencies
-├─ run.sh                          # Shell script for running
-├─ src/
-│  ├─ agent/                       # Multi-agent system components
-│  │  ├─ fire_spot_agent.py        # Fire detection agent
-│  │  ├─ main_agent.py             # Main controller agent
-│  │  ├─ prompt.py                 # Agent prompts and instructions
-│  │  ├─ weather_agent.py          # Weather analysis agent
-│  │  └─ web_search_agent.py       # Web search agent
-│  ├─ data/
-│  │  └─ danger-zone.csv           # High-risk zone data
-│  ├─ server/
-│  │  └─ app.py                    # Web server application
-│  ├─ tools/                       # Agent tools and utilities
-│  │  ├─ fire_data.py              # Fire data processing
-│  │  ├─ runnable.py               # Runnable tool implementations
-│  │  ├─ weather_data.py           # Weather data processing
-│  │  └─ web_search.py             # Web search functionality
-│  └─ utils/                       # Utility functions
-│     ├─ get_cordinates.py         # Coordinate utilities
-│     └─ unique_id.py              # ID generation utilities
-└─ workflow.mmd                    # Workflow documentation
+├─ requirements.txt
+├─ run.sh
+├─ src
+│  ├─ agent
+│  │  ├─ fire_spot_agent.py
+│  │  ├─ main_agent.py
+│  │  ├─ output_data_processing_agent.py
+│  │  ├─ prompt.py
+│  │  ├─ weather_agent.py
+│  │  └─ web_search_agent.py
+│  ├─ assets
+│  │  ├─ PyroScan-AI_Banner_Image.jpg
+│  │  └─ system_architecture.png.png
+│  ├─ data
+│  │  └─ danger-zone.json
+│  ├─ db
+│  │  ├─ processed
+│  │  │  └─ prediction.json
+│  │  └─ raw
+│  │     └─ agent_thought_output_raw.txt
+│  ├─ presentation
+│  │  ├─ index.html
+│  │  └─ script.js
+│  ├─ server
+│  │  └─ app.py
+│  ├─ tools
+│  │  ├─ fire_data.py
+│  │  ├─ runnable.py
+│  │  ├─ weather_data.py
+│  │  └─ web_search.py
+│  └─ utils
+│     ├─ get_cordinates.py
+│     ├─ log.py
+│     └─ unique_id.py
+└─ workflow.mmd
+
 ```
 
 ## Usage
