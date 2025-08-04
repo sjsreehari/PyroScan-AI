@@ -256,10 +256,6 @@ docker build -t pyroscan-ai .
 docker run -p 8483:8483 --env-file .env pyroscan-ai
 ```
 
-# <<<<<<< HEAD
-
-> > > > > > > 82af3dc432d1890668abc075d36ca461d3aa20b7
-
 ## Data Sources
 
 - **NASA FIRMS API**: Real-time satellite fire detection data
