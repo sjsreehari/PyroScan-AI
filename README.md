@@ -45,7 +45,7 @@ This project is built and developed by
 
 ## Demo Video
 
-
+https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/demo-video.mp4
 
 ## Target Monitoring Regions
 
