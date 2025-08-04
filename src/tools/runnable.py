@@ -20,21 +20,13 @@ def get_fire_data_tool(lat: float, lon: float) -> str:
     return fire_data(lat, lon)
 
 
+
 @tool
 def get_weather_data_tool(lat: float, lon: float) -> str:
     """
     Retrieves current or forecasted weather data for given latitude and longitude.
-
-    Args:
-        lat (float): Latitude of the location.
-        lon (float): Longitude of the location.
-
-    Returns:
-        str: Weather data for the location.
     """
     return weather_data(lat, lon)
-
-
 @tool
 def go_websearch_tool(location: str) -> str:
     """

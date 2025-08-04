@@ -22,22 +22,28 @@ def PredictFireOccuringPlace(locations):
             """
 
             
-def weatherPrompt(locations: list[dict]) -> str:
+def weatherPrompt(locations: list[str]) -> str:
     prompt = "You are a weather analysis agent. Use the Weather tool to get weather data for the following coordinates:\n\n"
-    for i, loc in enumerate(locations, 1):
-        prompt += f"{i}. lat: {loc['lat']}, lon: {loc['lon']}\n"
+    for i, loc_str in enumerate(locations, 1):
+        prompt += f"{i}. {loc_str}\n"
     prompt += "\nReturn the summary for each location.\n"
     return prompt
 
 
 
-
-
-def goWebSearchPrompt(location):
+def goWebSearchPrompt(location: str) -> str:
     return f"""
-            You are a great Websearch specialist you search for the location name to find out
-            the historical fire incidents
-            {location}
+            You are a web search specialist.
+
+            Search the web to find **historical wildfire incidents**, reports, or statistics related to the region: "{location}". 
+            Focus on credible sources such as:
+            - Government or environmental agencies (e.g., CAL FIRE, US Forest Service, NASA)
+            - News reports detailing past wildfires in that region
+            - Any fire risk history or trends related to that region.
+
+            Your goal is to gather useful context that could help assess wildfire risk in the area.
+
+            Search query: "historical wildfire incidents {location}"
             """
 
 
@@ -45,52 +51,50 @@ def goWebSearchPrompt(location):
 
 def mainPrompt(location):
     return f"""
-            You are a Forest Fire Prediction Controller Agent.
+        Your goal is to predict the likelihood of forest fires at different locations using three supporting agents:
+        1. Weather Agent — provides current weather for a given latitude and longitude.
+        2. Satellite Agent — checks active fire signals from satellite data.
+        3. Fire History Agent — retrieves past fire incidents for the location.
 
-            Your goal is to predict the likelihood of forest fires at different locations using three supporting agents:
-            1. Weather Agent — provides current weather for a given latitude and longitude.
-            2. Satellite Agent — checks active fire signals from satellite data.
-            3. Fire History Agent — retrieves past fire incidents for the location.
+        You will be given a list of locations in this format:
+        [
+            {{
+                "Location": "Name of location",
+                "Latitude": It's latitude,
+                "Longitude": It's longitude
+            }},
+            ...
+        ]
 
-            You will be given a list of locations in this format:
-            [
-                {{
-                    "Location": "Name of location",
-                    "Latitude": It's latitude,
-                    "Longitude": It's longitude
-                }},
-                ...
-            ]
+        For each location:
+        - Use the Weather Agent to check conditions like temperature, humidity, and wind. The input should be 'lat=<latitude>, lon=<longitude>'.
+        - Use the Satellite Agent to detect any nearby current fires. The input should be 'lat=<latitude>, lon=<longitude>'.
+        - Use the Fire History Agent to check for historical fire patterns. The input should be a string with the name of the location.
 
-            For each location:
-            - Use the Weather Agent to check conditions like temperature, humidity, and wind. The input should be 'lat=<latitude>, lon=<longitude>'.
-            - Use the Satellite Agent to detect any nearby current fires. The input should be 'lat=<latitude>, lon=<longitude>'.
-            - Use the Fire History Agent to check for historical fire patterns. The input should be a string with the name of the location.
+        Based on all the data:
+        - Predict whether the location is at High, Moderate, or Low risk for a forest fire.
+        - Justify your prediction clearly using weather, satellite, and historical data.
 
-            Based on all the data:
-            - Predict whether the location is at High, Moderate, or Low risk for a forest fire.
-            - Justify your prediction clearly using weather, satellite, and historical data.
+        Return the final result in the following JSON format ONLY, without any additional text or explanation:
 
-            Return the final result in the following JSON format ONLY, without any additional text or explanation:
+        [
+            {{
+                "Location": "Name of location",
+                "Prediction": "High",
+                "Reason": "High temperature, dry weather, previous fire history, and recent satellite fire signals detected."
+            }},
+            ...
+        ]
 
-            [
-                {{
-                    "Location": "Name of location",
-                    "Prediction": "High",
-                    "Reason": "High temperature, dry weather, previous fire history, and recent satellite fire signals detected."
-                }},
-                ...
-            ]
+        Begin the prediction task now using the input location list:
+        
+        {json.dumps(location, indent=4)}
 
-            Begin the prediction task now using the input location list:
-            
-            {json.dumps(location, indent=4)}
-
-            IMPORTANT:
-            - Do NOT ask any questions.
-            - Do NOT wait for any user input.
-            - Provide ONLY the JSON result with no extra text.
-            - IMPORTANT: Do not provide a Final Answer until all actions are completed. Only provide a Final Answer when the final JSON output is ready.
+        IMPORTANT:
+        - Do NOT ask any questions.
+        - Do NOT wait for any user input.
+        - Provide ONLY the JSON result with no extra text.
+        - IMPORTANT: Do not provide a Final Answer until all actions are completed. Only provide a Final Answer when the final JSON output is ready.
             """
             
 def OutputRawDataProcessorPrompt(raw_data: str) -> str:

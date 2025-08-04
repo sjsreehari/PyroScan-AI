@@ -9,9 +9,7 @@ def analyse_fire_places(target_locations):
     print("Fire place analysis started.....")
     
     try:
-        # Handle different input formats
         if isinstance(target_locations, str):
-            # Parse coordinates from string format "lat,lon"
             coords = target_locations.strip().split(',')
             if len(coords) == 2:
                 lat = float(coords[0].strip())
@@ -19,13 +17,11 @@ def analyse_fire_places(target_locations):
                 return fire_data(lat, lon)
         
         elif isinstance(target_locations, dict):
-            # Handle dictionary format
             lat = target_locations.get('lat', 0)
             lon = target_locations.get('lon', 0)
             return fire_data(lat, lon)
         
         elif isinstance(target_locations, (list, tuple)) and len(target_locations) >= 2:
-            # Handle list/tuple format
             lat = float(target_locations[0])
             lon = float(target_locations[1])
             return fire_data(lat, lon)
