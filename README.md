@@ -1,4 +1,4 @@
-<img src= "https://github.com/sjsreehari/PyroScan-AI/blob/main/assets/PyroScan-AI_Banner_Image.jpg" style="height:200px">
+<img src= "https://github.com/sjsreehari/PyroScan-AI/blob/main/assets/PyroScan-AI_Banner_Image.jpg" style="height:200px; width:100%">
 
 # PyroScan AI - Multi-Agent AI System for Forest Fire Prediction & Monitoring
 
