@@ -85,31 +85,40 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 ## Project Structure
 
-```
-PyroScan-AI/
-├── main.py                   # Main application entry point
-├── requirements.txt          # Python dependencies
-├── src/
-│   ├── agent/               # AI agent components
-│   │   ├── decision_maker.py
-│   │   └── prompt.py
-│   ├── data/                # Data files
-│   │   └── danger-zone.csv
-│   ├── db/                  # Database and storage
-│   │   ├── report.json
-│   │   ├── fire_data_by_danger_zone.csv
-│   │   ├── fire_data_location.csv
-│   │   └── filtered_fire_data.csv
-│   ├── executables/         # Executable scripts
-│   │   └── executable.py
-│   ├── server/              # Web server components
-│   │   ├── app.py
-│   ├── tools/               # Core tools and utilities
-│   │   ├── fire_data.py     # Fire data fetching and processing
-│   └── utils/               # Utility functions
-│       ├── get_coordinates.py
-│       └── unique_id.py
-└── venv/                    # Virtual environment
+PyroScan-AI
+├─ .dockerignore
+├─ Dockerfile
+├─ main.py
+├─ pyroscan-ai.toml
+├─ README.md
+├─ requirements.txt
+├─ run.sh
+├─ src
+│  ├─ agent
+│  │  ├─ fire_spot_agent.py
+│  │  ├─ main_agent.py
+│  │  ├─ prompt.py
+│  │  ├─ risk_score_agent.py
+│  │  ├─ weather_agent.py
+│  │  └─ web_search_agent.py
+│  ├─ data
+│  │  └─ danger-zone.csv
+│  ├─ db
+│  ├─ server
+│  │  ├─ app.py
+│  │  └─ static
+│  │     └─ templates
+│  │        └─ predictions.html
+│  ├─ tools
+│  │  ├─ fire_data.py
+│  │  ├─ runnable.py
+│  │  ├─ weather_data.py
+│  │  └─ web_search.py
+│  └─ utils
+│     ├─ get_cordinates.py
+│     └─ unique_id.py
+└─ workflow.mmd
+
 ```
 
 ## Usage
@@ -161,9 +170,15 @@ docker run -p 8483:8483 --env-file .env pyroscan-ai
 - Risk assessment algorithms
 
 
+
+## Flowchart
+
+![Diagram](workflow.mmd)
+
 ## Disclaimer
 
 PyroScan AI is designed for research and monitoring purposes. Always follow local emergency protocols and contact appropriate authorities in case of actual fire emergencies.
 
 
 **Drop a star on GitHub if you like it!** 
+```
