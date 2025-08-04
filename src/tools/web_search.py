@@ -3,6 +3,7 @@ from ddgs import DDGS
 def go_websearch(location: str):
     
     query = f"Can you provide an analysis of past fire incidents in {location}?"
+    
     print(f"[~] Performing web search for: {query}")
 
     with DDGS() as ddgs:

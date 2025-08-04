@@ -22,8 +22,6 @@ def analyse_historical_data(target_locations_name):
     )
 
 
-
-
     tool = [
         Tool(
             name="Fire data",
