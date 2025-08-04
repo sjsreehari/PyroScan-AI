@@ -46,3 +46,4 @@ urllib3==2.5.0
 zstandard==0.23.0
 python-dotenv
 flask
+flask-cors
