@@ -112,6 +112,72 @@ PyroScan-AI/
 └── venv/                    # Virtual environment
 ```
 
+## System Architecture & Agent Flow
+
+```mermaid
+flowchart TD
+    subgraph User
+        U["User / Analyst"]
+    end
+    subgraph Agents
+        MainAgent["Main Agent"]
+        FireSpotAgent["Fire Spot Agent"]
+        WeatherAgent["Weather Agent"]
+        WebSearchAgent["Web Search Agent"]
+        RiskScoreAgent["Risk Score Agent"]
+    end
+    subgraph Tools
+        FireDataTool["Fire Data Tool\n(NASA FIRMS)"]
+        WeatherDataTool["Weather Data Tool"]
+        WebSearchTool["Historical Data Tool"]
+    end
+    subgraph Data
+        DangerZone["danger-zone.csv"]
+        SatelliteAPI["NASA FIRMS API"]
+        WeatherAPI["Weather API"]
+        Web["Web Search"]
+    end
+    U --> MainAgent
+    MainAgent --> FireSpotAgent
+    MainAgent --> WeatherAgent
+    MainAgent --> WebSearchAgent
+    MainAgent --> RiskScoreAgent
+    FireSpotAgent --> FireDataTool
+    WeatherAgent --> WeatherDataTool
+    WebSearchAgent --> WebSearchTool
+    RiskScoreAgent --> FireDataTool
+    RiskScoreAgent --> WeatherDataTool
+    RiskScoreAgent --> WebSearchTool
+    FireDataTool --> SatelliteAPI
+    WeatherDataTool --> WeatherAPI
+    WebSearchTool --> Web
+    MainAgent --> DangerZone
+    RiskScoreAgent --> DangerZone
+    DangerZone -.-> MainAgent
+    DangerZone -.-> RiskScoreAgent
+    SatelliteAPI -.-> FireDataTool
+    WeatherAPI -.-> WeatherDataTool
+    Web -.-> WebSearchTool
+```
+
+### Risk Score Agent
+
+The **Risk Score Agent** combines weather, fire activity, and historical data to provide a comprehensive fire risk score (0-100) and actionable recommendations for each monitored region. It is fully integrated with the main agent and can be used independently as well.
+
+#### Example Usage
+
+```python
+from src.agent.risk_score_agent import calculate_risk_score
+
+locations = [
+    {"Location": "Amazon Rainforest", "Latitude": -3.4653, "Longitude": -62.2159},
+    {"Location": "California Wildlands", "Latitude": 36.7783, "Longitude": -119.4179}
+]
+
+result = calculate_risk_score(locations)
+print(result)
+```
+
 ## Usage
 
 ### Running the Fire Data Tool
