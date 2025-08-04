@@ -162,6 +162,7 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
    OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 3. **Weather API Key**
+   - Get your API key from: https://www.weatherapi.com/my/
    - Add to `.env` file:
    ```
    WEATHERAPI_API_KEY=your_weather_api_key_here
