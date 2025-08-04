@@ -71,11 +71,19 @@ def main_agent():
     save_file = os.path.join("src/db/raw", "agent_thought_output_raw.txt")
 
      
-    llm = ChatOpenAI(
-        model="deepseek/deepseek-chat-v3-0324:free",
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.getenv("OPENROUTER_API_KEY")
-    )
+    # Try to use OpenRouter, fallback to OpenAI if rate limited
+    try:
+        llm = ChatOpenAI(
+            model="deepseek/deepseek-chat-v3-0324:free",
+            base_url="https://openrouter.ai/api/v1",
+            api_key=os.getenv("OPENROUTER_API_KEY")
+        )
+    except Exception as e:
+        print(f"Warning: OpenRouter failed, trying OpenAI: {e}")
+        llm = ChatOpenAI(
+            model="gpt-3.5-turbo",
+            api_key=os.getenv("OPENAI_API_KEY")
+        )
 
 
 
@@ -83,28 +91,23 @@ def main_agent():
     fire_agent = [
         Tool(
             name="Fire data extractor",
-            description="fire_agent Use this tools to get the current heatmap data of this places using the longitude and latitude",
+            description="Use this tool to get the current heatmap data of places using longitude and latitude. Input should be a string with format 'lat,lon' or coordinates separated by comma.",
             func=analyse_fire_places
         )
     ]
     
-    
-    
-    
     weather_agent = [
         Tool(
             name="Weather tool",
-            description="weather_agent Use this tool to get the Climate and weather info of a place using the latitude and longitude",
+            description="Use this tool to get the climate and weather info of a place using the latitude and longitude. Input should be a string with format 'lat,lon' or coordinates separated by comma.",
             func=analyse_the_weather
         )
     ]
     
-    
-    
     websearch_agent = [
         Tool(
             name="Websearch tool",
-            description="websearch_agent Use this tool to get the historic weather and disaster contition of a place using the place name",
+            description="Use this tool to get the historic weather and disaster conditions of a place using the place name. Input should be a string with the location name.",
             func=analyse_historical_data
         )
     ]

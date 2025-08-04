@@ -28,7 +28,7 @@ def get_weather_data_tool(lat: float, lon: float) -> str:
     Args:
         lat (float): Latitude of the location.
         lon (float): Longitude of the location.
-a
+
     Returns:
         str: Weather data for the location.
     """
