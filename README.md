@@ -43,9 +43,11 @@ This project is built and developed by
 - **Agentic Decision Making**: Advanced AI analysis and prediction capabilities
 - **Geographic Analysis**: Location-based fire risk assessment and mapping
 
-## Demo Video
+<video width="100%" controls>
+  <source src="https://github.com/sjsreehari/PyroScan-AI/raw/main/src/assets/demo-video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/demo-video.mp4
 
 ## Target Monitoring Regions
 
