@@ -34,41 +34,15 @@ The system monitors fire incidents in these critical forest regions:
 
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
-```mermaid
-graph TD
-    A[ Main Agent<br/>Multi-Agent Controller] --> B[ Weather Agent<br/>Real-time weather analysis]
-    A --> C[ Web Search Agent<br/>Historical data & news]
-    A --> D[ Fire Spot Agent<br/>NASA FIRMS satellite data]
+<img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/assets/system_architecture.png.png">
 
-    B --> B1[ WeatherTool<br/>Coordinates → Weather Forecast]
-    C --> C1[ WebSearchTool<br/>Location → Fire News & History]
-    D --> D1[ SatelliteTool<br/>Location → Fire Detection]
-
-    subgraph Memory System
-        A2[ ConversationBufferMemory<br/>Agent Communication History]
-    end
-
-    A --> A2
-
-    subgraph Data Sources
-        E[ NASA FIRMS API]
-        F[ Weather APIs]
-        G[ DuckDuck Go API]
-    end
-
-    B1 --> F
-    C1 --> G
-    D1 --> E
-```
 
 ## Agent System Overview
 
 ### Main Agent (Controller)
-
 The **Main Agent** serves as the central coordinator of the multi-agent system, orchestrating communication between specialized agents and managing the overall fire analysis workflow.
 
 **Capabilities:**
-
 - Coordinates all other agents
 - Manages conversation memory
 - Integrates results from multiple agents
@@ -76,11 +50,9 @@ The **Main Agent** serves as the central coordinator of the multi-agent system, 
 - Makes final recommendations based on agent inputs
 
 ### Fire Spot Agent
-
 The **Fire Spot Agent** specializes in real-time fire detection and analysis using NASA FIRMS satellite data.
 
 **Capabilities:**
-
 - Fetches live fire data from NASA FIRMS API
 - Analyzes fire activity patterns
 - Identifies active fire hotspots
@@ -88,30 +60,24 @@ The **Fire Spot Agent** specializes in real-time fire detection and analysis usi
 - Filters fire data for monitored regions
 
 **Tools:**
-
 - `Fire data tool`: Retrieves recent fire data from NASA FIRMS API for given coordinates
 
 ### Weather Agent
-
 The **Weather Agent** focuses on weather analysis and its impact on fire risk assessment.
 
 **Capabilities:**
-
 - Retrieves current weather conditions
 - Analyzes weather forecasts
 - Assesses weather-related fire risk factors
 - Monitors temperature, humidity, and wind conditions
 
 **Tools:**
-
 - `Weather data tool`: Retrieves current or forecasted weather data for given coordinates
 
 ### Web Search Agent
-
 The **Web Search Agent** gathers historical fire data and recent news about fire incidents.
 
 **Capabilities:**
-
 - Performs live web searches for fire-related information
 - Gathers historical fire data for specific locations
 - Analyzes recent fire news and reports
@@ -119,7 +85,6 @@ The **Web Search Agent** gathers historical fire data and recent news about fire
 - Identifies patterns in fire occurrence
 
 **Tools:**
-
 - `Web search tool`: Performs live web searches for location-specific fire information
 
 ## Installation
@@ -132,20 +97,18 @@ The **Web Search Agent** gathers historical fire data and recent news about fire
 ### Setup Instructions
 
 1. **Clone the repository**
-
    ```bash
    git clone https://github.com/sjsreehari/PyroScan-AI.git
    cd PyroScan-AI
    ```
 
 2. **Create a virtual environment (recommended)**
-
    ```bash
    python -m venv venv
-
+   
    # On Windows
    venv\Scripts\activate
-
+   
    # On macOS/Linux
    source venv/bin/activate
    ```
@@ -162,10 +125,8 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
 ### Required API Keys
 
 1. **NASA FIRMS API Key**
-
    - Get your API key from: https://firms.modaps.eosdis.nasa.gov/api/
    - Add to `.env` file:
-
    ```
    NASA_FIRM_API_KEY=your_nasa_api_key_here
    ```
@@ -177,14 +138,13 @@ PyroScan AI requires API keys for external services. Create a `.env` file in the
    OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 3. **Weather API Key**
-   - Get your API key from: https://www.weatherapi.com/my/
    - Add to `.env` file:
    ```
    WEATHERAPI_API_KEY=your_weather_api_key_here
    ```
 
-### Example `.env` file:
 
+### Example `.env` file:
 ```
 NASA_FIRM_API_KEY=9b****************04c6ee
 OPENROUTER_API_KEY=your_openrouter_api_key_here
@@ -229,19 +189,15 @@ PyroScan-AI/
 ### Running Individual Agents
 
 #### Fire Data Tool
-
 ```bash
 python src/tools/fire_data.py
 ```
-
 This will:
-
 - Fetch real-time fire data from NASA FIRMS API
 - Filter data for monitored regions
 - Save filtered data to `src/db/filtered_fire_data.csv`
 
 #### Main Multi-Agent Application
-
 ```bash
 python main.py
 ```
@@ -255,6 +211,7 @@ docker build -t pyroscan-ai .
 # Run the container
 docker run -p 8483:8483 --env-file .env pyroscan-ai
 ```
+
 
 ## Data Sources
 
@@ -291,4 +248,5 @@ docker run -p 8483:8483 --env-file .env pyroscan-ai
 
 PyroScan AI is designed for research and monitoring purposes. Always follow local emergency protocols and contact appropriate authorities in case of actual fire emergencies. The system provides analysis and predictions but should not be the sole source for emergency decisions.
 
-<h2 align="center">⭐ Drop a star on GitHub if you find PyroScan AI useful!</h2>
+
+**⭐ Drop a star on GitHub if you find PyroScan AI useful!**
