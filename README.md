@@ -1,11 +1,28 @@
 <img src= "https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/PyroScan-AI_Banner_Image.jpg" style="height:350px; width:100%">
 
-
-   ![Python](https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white)
-   ![JavaScript](https://img.shields.io/badge/javascript-%23f7df1e.svg?style=for-the-badge&logo=javascript&logoColor=black)
-   ![Flask](https://img.shields.io/badge/flask-%23000000.svg?style=for-the-badge&logo=flask&logoColor=white)
-   ![LangChain - Version](https://img.shields.io/badge/LangChain-0.3+-teal?style=for-the-badge&logo=langchain)
-   ![Pydantic - Version](https://img.shields.io/badge/Pydantic-2.10+-red?style=for-the-badge&logo=pydantic)
+<div align="center" style="display: flex; flex-wrap: wrap;">
+  <a href="https://www.python.org" target="_blank">
+    <img src="https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+    <img src="https://img.shields.io/badge/javascript-%23f7df1e.svg?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" >
+  </a>
+  <a href="https://flask.palletsprojects.com/" target="_blank">
+    <img src="https://img.shields.io/badge/flask-%23000000.svg?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
+  </a>
+  <a href="https://www.langchain.com/" target="_blank">
+    <img src="https://img.shields.io/badge/LangChain-0.3+-teal?style=for-the-badge&logo=langchain" alt="LangChain">
+  </a>
+  <a href="https://docs.pydantic.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/Pydantic-2.10+-red?style=for-the-badge&logo=pydantic" alt="Pydantic">
+  </a>
+  <a href="https://openrouter.ai" target="_blank">
+    <img src="https://img.shields.io/badge/OpenRouter-AI-blueviolet?style=for-the-badge&logo=openai" alt="OpenRouter AI">
+  </a>
+  <a href="https://www.weatherapi.com/" target="_blank">
+    <img src="https://img.shields.io/badge/WeatherAPI-data-blue?style=for-the-badge&logo=cloudflare" alt="Weather API">
+  </a>
+</div>
 
 # PyroScan AI - Multi-Agent AI System for Forest Fire Prediction & Monitoring
 
