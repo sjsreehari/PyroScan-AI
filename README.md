@@ -28,19 +28,21 @@ The system monitors fire incidents in these critical forest regions:
 
 # System Artitechture
 
-
 ```mermaid
 graph TD
-    A[Main Agent<br> Multi-Agent Controller] --> B[Weather Agent<br>Gets live weather]
-    A --> C[Fire History Agent<br> Web search]
-    A --> D[Satellite Agent<br> NASA FIRMS API]
-    B --> B1[WeatherTool<br>Coordinates -> Forecast]
-    C --> C1[WebSearchTool<br>Location -> Fire News]
-    D --> D1[SatelliteTool<br>Location -> Fire Detection]
+    A[Main Agent<br/>Multi-Agent Controller] --> B[Weather Agent<br/>Gets live weather data]
+    A --> C[Fire History Agent<br/>Fetches fire-related news]
+    A --> D[Satellite Agent<br/>NASA FIRMS API for fire detection]
+
+    B --> B1[WeatherTool<br/>Coordinates → Weather Forecast]
+    C --> C1[WebSearchTool<br/>Location → Fire News]
+    D --> D1[SatelliteTool<br/>Location → Fire Detection]
 
     subgraph Memory
-      A2[ConversationBufferMemory]
-          A --> A2
+        A2[ConversationBufferMemory]
+    end
+
+    A --> A2
 ```
 
 ## Installation
