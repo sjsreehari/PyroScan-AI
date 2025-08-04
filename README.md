@@ -53,7 +53,7 @@ graph TD
     subgraph Data Sources
         E[ NASA FIRMS API]
         F[ Weather APIs]
-        G[ Web Search APIs]
+        G[ DuckDuck Go API]
     end
     
     B1 --> F
