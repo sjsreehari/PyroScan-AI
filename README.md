@@ -35,30 +35,47 @@ The system monitors fire incidents in these critical forest regions:
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
 ```mermaid
-graph TD
-    A[ Main Agent<br/>Multi-Agent Controller] --> B[ Weather Agent<br/>Real-time weather analysis]
-    A --> C[ Web Search Agent<br/>Historical data & news]
-    A --> D[ Fire Spot Agent<br/>NASA FIRMS satellite data]
-    
-    B --> B1[ WeatherTool<br/>Coordinates → Weather Forecast]
-    C --> C1[ WebSearchTool<br/>Location → Fire News & History]
-    D --> D1[ SatelliteTool<br/>Location → Fire Detection]
-    
-    subgraph Memory System
-        A2[ ConversationBufferMemory<br/>Agent Communication History]
-    end
-    
-    A --> A2
-    
-    subgraph Data Sources
-        E[ NASA FIRMS API]
-        F[ Weather APIs]
-        G[ DuckDuck Go API]
-    end
-    
+---
+config:
+  theme: base
+  look: classic
+---
+flowchart TD
+ subgraph subGraph0["Memory System"]
+        A2["ConversationBufferMemory<br>Agent Communication History"]
+  end
+ subgraph subGraph1["Data Sources"]
+        E["NASA FIRMS API"]
+        F["Weather APIs"]
+        G["DuckDuck Go API"]
+  end
+    A["Main Agent<br>Multi-Agent Controller"] --> B["Weather Agent<br>Real-time weather analysis"] & C["Web Search Agent<br>Historical data &amp; news"] & D["Fire Spot Agent<br>NASA FIRMS satellite data"] & A2
+    B --> B1["WeatherTool<br>Coordinates → Weather Forecast"]
+    C --> C1["WebSearchTool<br>Location → Fire News &amp; History"]
+    D --> D1["SatelliteTool<br>Location → Fire Detection"]
     B1 --> F
     C1 --> G
     D1 --> E
+     A:::Sky
+     A:::Rose
+     A:::Pine
+     A:::Peach
+     B:::Class_02
+     C:::Class_02
+     D:::Rose
+     D:::Class_02
+    classDef Sky stroke-width:1px, stroke-dasharray:none, stroke:#374D7C, fill:#E2EBFF, color:#374D7C
+    classDef Rose stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
+    classDef Pine stroke-width:1px, stroke-dasharray:none, stroke:#254336, fill:#27654A, color:#FFFFFF
+    classDef Peach stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
+    classDef Class_02 fill:#E1BEE7, stroke:#000000
+    style A2 fill:#C8E6C9
+    style A fill:#E1BEE7,stroke-width:1px,stroke-dasharray: 0,stroke:#000000,color:#000000
+    style D fill:#E1BEE7,stroke:#000000,color:#000000
+    style B1 fill:#FFCDD2
+    style C1 fill:#FFCDD2
+    style D1 fill:#FFCDD2
+
 ```
 
 ##  Agent System Overview
