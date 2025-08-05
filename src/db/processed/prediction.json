@@ -1,52 +1,12 @@
 [
-    {
-        "Location": "Amazon Rainforest",
-        "Prediction": "Moderate",
-        "Reason": "High temperature and low humidity, but satellite and historical data unavailable for confirmation."
-    },
-    {
-        "Location": "California Wildlands",
-        "Prediction": "Low",
-        "Reason": "Moderate temperature and humidity, but satellite and historical data unavailable for confirmation."
-    },
-    {
-        "Location": "Siberian Taiga",
-        "Prediction": "Low",
-        "Reason": "Cold temperatures and high humidity reduce fire risk."
-    },
-    {
-        "Location": "Australian Bushland",
-        "Prediction": "High",
-        "Reason": "Severe drought conditions and high winds increase fire risk."
-    },
-    {
-        "Location": "Congo Rainforest",
-        "Prediction": "Moderate",
-        "Reason": "Warm temperatures with intermittent dry spells."
-    },
-    {
-        "Location": "Alaskan Wilderness",
-        "Prediction": "Low",
-        "Reason": "Snow cover present, fire risk minimal."
-    },
-    {
-        "Location": "Patagonian Steppe",
-        "Prediction": "Moderate",
-        "Reason": "Dry grasslands with occasional strong winds."
-    },
-    {
-        "Location": "Mediterranean Forests",
-        "Prediction": "High",
-        "Reason": "Hot, dry summer conditions with low humidity."
-    },
-    {
-        "Location": "Boreal Forest, Canada",
-        "Prediction": "Moderate",
-        "Reason": "Warm and dry weather with recent lightning strikes."
-    },
-    {
-        "Location": "Himalayan Foothills",
-        "Prediction": "Low",
-        "Reason": "Cool and moist conditions prevail."
-    }
+  {
+    "Location": "Amazon Rainforest",
+    "Prediction": "Moderate",
+    "Reason": "High temperature, partly cloudy weather, and possible wildfire activity reported historically."
+  },
+  {
+    "Location": "California Wildlands",
+    "Prediction": "High",
+    "Reason": "High temperature, low humidity, moderate wind speeds, and possible wildfire activity reported historically."
+  }
 ]

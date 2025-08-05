@@ -14,7 +14,9 @@ from langchain_core.agents import AgentAction, AgentFinish
 
 import os
 import json
+import webbrowser
 from dotenv import load_dotenv
+
 
 
 from src.agent.prompt import mainPrompt
@@ -160,3 +162,6 @@ def main_agent():
     print(f"[*] Reasoning log saved to: {save_file}")
     
     final_output_data_processing_agent()
+    
+    
+    webbrowser.open("http://127.0.0.1:5500/src/presentation/index.html")

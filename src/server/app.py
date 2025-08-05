@@ -9,8 +9,11 @@ app = Flask(__name__, static_folder="static", template_folder="static/templates"
 
 CORS(app)
 
+
+
 @app.route("/", methods=["GET"])
 def root():
+    
     return jsonify({
         "status_code": 200,
         "message": "PyroScan-AI API v1 - Ready for fire risk predictions. Use `/api/v1/predictions` to view fire risk data."
@@ -19,7 +22,10 @@ def root():
 
 @app.route("/api/v1/predictions", methods=["GET"])
 def log_predictions():
+    
     load_predictions = os.path.join(os.getcwd(), "src", "db", "processed", "prediction.json")
+
+
 
     if not os.path.exists(load_predictions):
         return jsonify({
@@ -27,11 +33,14 @@ def log_predictions():
             "message": "predictions.json does not exist"
         }), 404
 
+
+
     try:
         with open(load_predictions, "r") as f:
             predictions = json.load(f) 
 
         return jsonify(predictions), 200  
+
 
     except json.JSONDecodeError:
         return jsonify({
@@ -39,7 +48,3 @@ def log_predictions():
             "message": "Invalid JSON format in predictions.json"
         }), 500
 
-
-@app.route("/predictions", methods=["GET"])
-def html_predictions():
-    return render_template("predictions.html")  
