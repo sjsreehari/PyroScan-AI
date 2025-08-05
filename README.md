@@ -44,7 +44,9 @@ This project is built and developed by
 - **Geographic Analysis**: Location-based fire risk assessment and mapping
 
 # Demo Video
-[![Watch the video](https://vgvmufmldgmthuoxqrum.supabase.co/storage/v1/object/public/posts//demo-video.mp4)
+
+[![Watch the video](https://github.com/sjsreehari/PyroScan-AI/raw/main/src/assets/demo-thumbnail.png)](https://vgvmufmldgmthuoxqrum.supabase.co/storage/v1/object/public/posts/demo-video.mp4)
+
 
 ## Target Monitoring Regions
 
