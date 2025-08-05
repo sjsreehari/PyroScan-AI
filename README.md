@@ -1,4 +1,4 @@
-<img src= "https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/PyroScan-AI_Banner_Image.jpg" style="height:350px; width:100%">
+<img src= "https://github.com/DeveloperAromal/PyroScan-AI/blob/main/src/assets/PyroScan-AI_Banner_Image.jpg" style="height:350px; width:100%">
 
 <div align="center" style="display: flex; flex-wrap: wrap;">
   <a href="https://www.python.org" target="_blank">
@@ -62,7 +62,7 @@ The system monitors fire incidents in these critical forest regions:
 
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
-<img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/system_architecture.png.png">
+<img src="https://github.com/DeveloperAromal/PyroScan-AI/blob/main/src/assets/system_architecture.png.png">
 
 
 ## Agent System Overview
@@ -133,7 +133,7 @@ The **Web Search Agent** gathers historical fire data and recent news about fire
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/sjsreehari/PyroScan-AI.git
+   git clone https://github.com/DeveloperAromal/PyroScan-AI.git
    cd PyroScan-AI
    ```
 
