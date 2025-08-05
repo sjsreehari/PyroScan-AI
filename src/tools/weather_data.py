@@ -1,6 +1,8 @@
 import requests
 import os
+import time
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -33,21 +35,26 @@ def weather_data(lat: float, lon: float) -> str:
         "q": f"{lat},{lon}"
     }
 
-    import time
+    
     max_retries = 3
     for attempt in range(max_retries):
+        
         try:
             print(f"[~] Fetching weather data... (Attempt {attempt+1})")
             response = requests.get(base_url, params=params, timeout=30)
             response.raise_for_status()
             data = response.json()
             break
+        
+        
         except requests.exceptions.Timeout:
             print(f"[x] WeatherAPI request timed out on attempt {attempt+1}.")
             if attempt < max_retries - 1:
                 time.sleep(2)
                 continue
             return "WeatherAPI request timed out after multiple attempts."
+        
+        
         except requests.exceptions.RequestException as e:
             print(f"[x] WeatherAPI request failed on attempt {attempt+1}: {e}")
             if attempt < max_retries - 1:
@@ -55,18 +62,21 @@ def weather_data(lat: float, lon: float) -> str:
                 continue
             return f"WeatherAPI request failed after multiple attempts: {e}"
 
-    # If data was never set due to all retries failing, return error
+
     if 'data' not in locals():
         return "WeatherAPI failed to return data."
 
     current = data.get("current", {})
     location = data.get("location", {})
 
+
     temp_c = current.get("temp_c", "N/A")
     condition = current.get("condition", {}).get("text", "N/A")
     wind_kph = current.get("wind_kph", "N/A")
     humidity = current.get("humidity", "N/A")
     local_time = location.get("localtime", "N/A")
+
+
 
     summary = (
         f"Weather at ({lat}, {lon}) [{location.get('name', 'Unknown')}]:\n"
@@ -76,4 +86,6 @@ def weather_data(lat: float, lon: float) -> str:
         f"Humidity: {humidity}%\n"
         f"Local Time: {local_time}"
     )
+    
+    
     return summary

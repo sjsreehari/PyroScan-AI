@@ -1,12 +1,42 @@
 [
     {
-        "Location": "Amazon Rainforest",
-        "Latitude": -3.4653,
-        "Longitude": -62.2159
+        "Location": "British Columbia",
+        "Latitude": 53.7267,
+        "Longitude": -127.6476
     },
     {
-        "Location": "California Wildlands",
-        "Latitude": 36.7783,
-        "Longitude": -119.4179
+        "Location": "Siberia Forests",
+        "Latitude": 60.0000,
+        "Longitude": 105.0000
+    },
+    {
+        "Location": "Athens Outskirts",
+        "Latitude": 37.9838,
+        "Longitude": 23.7275
+    },
+    {
+        "Location": "Canberra Region",
+        "Latitude": -35.2809,
+        "Longitude": 149.1300
+    },
+    {
+        "Location": "Alberta Forests",
+        "Latitude": 54.0000,
+        "Longitude": -115.0000
+    },
+    {
+        "Location": "Western Cape",
+        "Latitude": -33.9249,
+        "Longitude": 18.4241
+    },
+    {
+        "Location": "Mato Grosso",
+        "Latitude": -12.6819,
+        "Longitude": -55.6896
+    },
+    {
+        "Location": "Los Angeles National Forest",
+        "Latitude": 34.5000,
+        "Longitude": -118.2000
     }
 ]
