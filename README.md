@@ -223,15 +223,11 @@ PyroScan-AI
 │  │  └─ script.js
 │  ├─ server
 │  │  └─ app.py
-│  ├─ tools
-│  │  ├─ fire_data.py
-│  │  ├─ runnable.py
-│  │  ├─ weather_data.py
-│  │  └─ web_search.py
-│  └─ utils
-│     ├─ get_cordinates.py
-│     ├─ log.py
-│     └─ unique_id.py
+│  └─ tools
+│     ├─ fire_data.py
+│     ├─ runnable.py
+│     ├─ weather_data.py
+│     └─ web_search.py
 └─ workflow.mmd
 
 ```
