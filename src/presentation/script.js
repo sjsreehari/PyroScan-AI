@@ -13,18 +13,15 @@ paragraph.textContent =
 paragraph.className = "text-lg text-gray-300 mb-8 text-center";
 root.appendChild(paragraph);
 
-// Container for chart
 const chartContainer = document.createElement("div");
 chartContainer.className =
   "max-w-4xl mx-auto mb-10 bg-stone-900 p-6 rounded-2xl shadow-lg";
 root.appendChild(chartContainer);
 
-// Create canvas for Chart.js
 const canvas = document.createElement("canvas");
 canvas.id = "predictionChart";
 chartContainer.appendChild(canvas);
 
-// Create grid for cards
 const grid = document.createElement("div");
 grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
 root.appendChild(grid);
@@ -39,7 +36,6 @@ fetch("http://127.0.0.1:8434/api/v1/predictions")
         (priority[a.Prediction.toLowerCase()] || 0)
     );
 
-    // Build scatter chart data
     const scatterData = data.map((item, index) => ({
       x: index,
       y:
@@ -54,12 +50,11 @@ fetch("http://127.0.0.1:8434/api/v1/predictions")
       id: index,
     }));
 
-    // Create Chart.js scatter chart with heatmap-style gradient
     const ctx = canvas.getContext("2d");
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, "#ef4444"); // High
-    gradient.addColorStop(0.5, "#eab308"); // Moderate
-    gradient.addColorStop(1, "#22c55e"); // Low
+    gradient.addColorStop(0, "#ef4444"); 
+    gradient.addColorStop(0.5, "#eab308"); 
+    gradient.addColorStop(1, "#22c55e");
 
     const chart = new Chart(ctx, {
       type: "scatter",
@@ -143,7 +138,6 @@ fetch("http://127.0.0.1:8434/api/v1/predictions")
       },
     });
 
-    // Create cards and connect interaction
     data.forEach((item, index) => {
       const card = document.createElement("div");
       card.className =
@@ -162,7 +156,6 @@ fetch("http://127.0.0.1:8434/api/v1/predictions")
       const reason = document.createElement("p");
       reason.innerHTML = `<span class="text-gray-400 text-sm">Reason:</span> <span class="text-gray-200 text-sm">${item.Reason}</span>`;
 
-      // Card-click → highlight point on chart
       card.addEventListener("click", () => {
         chart.setActiveElements([{ datasetIndex: 0, index: index }]);
         chart.tooltip.setActiveElements([{ datasetIndex: 0, index: index }]);
