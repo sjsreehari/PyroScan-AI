@@ -1,4 +1,4 @@
-<img src= "https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/PyroScan-AI_Banner_Image.jpg" style="height:350px; width:100%">
+<img src= "https://github.com/DeveloperAromal/PyroScan-AI/blob/main/src/assets/PyroScan-AI_Banner_Image.jpg" style="height:350px; width:100%">
 
 <div align="center" style="display: flex; flex-wrap: wrap;">
   <a href="https://www.python.org" target="_blank">
@@ -28,8 +28,6 @@
 
 PyroScan AI is an advanced **multi-agent artificial intelligence system** designed to predict, monitor, and analyze forest fires using real-time satellite data from NASA FIRMS API, weather information, and historical fire data. The system employs a sophisticated agentic architecture with specialized AI agents working collaboratively to provide comprehensive fire risk assessment and early warning capabilities for critical forest regions worldwide.
 
-
-
 This project is built and developed by
    - *Sreehari S J*
    - *Aromal S*
@@ -44,6 +42,7 @@ This project is built and developed by
 - **Intelligent Filtering**: AI-powered filtering based on proximity to high-risk areas
 - **Agentic Decision Making**: Advanced AI analysis and prediction capabilities
 - **Geographic Analysis**: Location-based fire risk assessment and mapping
+
 
 ## Target Monitoring Regions
 
@@ -63,7 +62,7 @@ The system monitors fire incidents in these critical forest regions:
 
 PyroScan AI employs a sophisticated multi-agent architecture where specialized AI agents collaborate to provide comprehensive fire analysis:
 
-<img src="https://github.com/sjsreehari/PyroScan-AI/blob/main/src/assets/system_architecture.png.png">
+<img src="https://github.com/DeveloperAromal/PyroScan-AI/blob/main/src/assets/system_architecture.png.png">
 
 
 ## Agent System Overview
@@ -223,7 +222,7 @@ PyroScan-AI
 │  │  └─ script.js
 │  ├─ server
 │  │  └─ app.py
-│  └─ tools
+│  ├─ tools
 │     ├─ fire_data.py
 │     ├─ runnable.py
 │     ├─ weather_data.py
