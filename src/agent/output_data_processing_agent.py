@@ -10,8 +10,9 @@ def final_output_data_processing_agent():
     save_processed_file = os.path.join("src/db/processed", "prediction.json")
 
     
+    model_name = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-chat-v3-0324")
     llm = ChatOpenAI(
-        model_name="deepseek/deepseek-chat-v3-0324:free",
+        model_name=model_name,
         base_url="https://openrouter.ai/api/v1",
         api_key=os.getenv("OPENROUTER_API_KEY"),
     )

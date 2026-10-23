@@ -74,8 +74,9 @@ def main_agent():
 
      
     try:
+        model_name = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-chat-v3-0324")
         llm = ChatOpenAI(
-            model="deepseek/deepseek-chat-v3-0324:free",
+            model=model_name,
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("OPENROUTER_API_KEY")
         )
